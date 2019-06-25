@@ -1,0 +1,23 @@
+[{
+    "class": "Annotation",
+    "color": "#7c24af",
+    "content": "LANG",
+    "entity": "LANG",
+    "height": 215.33333333333334,
+    "page": 1,
+    "type": "area",
+    "uuid": "759c8464-897d-4bf9-a478-a9503081b592",
+    "width": 340,
+    "x": 236,
+    "y": 36
+},
+{
+    "class": "Annotation",
+    "color": "FFFF00",
+    "content": "BiD",
+    "entity": "BiD",
+    "page": 1,
+    "rectangles": [{"y": 98.77314814814814, "x": 347.99768518518516, "width": 61.52732566550925, "height": 13.333333333333332}],
+    "type": "highlight",
+    "uuid": "602725f0-f451-4e86-a7de-b03e4c032e79"
+}]
