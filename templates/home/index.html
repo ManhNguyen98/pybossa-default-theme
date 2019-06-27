@@ -12,7 +12,13 @@
             <a class="btn btn-primary" href="{{ url_for('project.details', short_name=featured_project.short_name)}}">{{_('Contribute')}}</a>
             {% else %}
             <h1>{{_('Welcome to Anno')}}</h1>
-            <h6 style="color: #000000;">{{_('Base on PYBOSSA technology')}}</h6>
+            <a href="http://pybossa.com/?utm_source=PYBOSSA%20new%20server&utm_medium=server&utm_campaign=PYBOSSA%20new%20server"><img alt="SciFabric Logo" class="logo_horiz" src="{{ url_for('static', filename='img/pybossa.svg')}}">
+
+            </a>
+            <h6 style="color: #000000;">
+                Powered by
+                <a href="http://pybossa.com/?utm_source=PYBOSSA%20new%20server&utm_medium=server&utm_campaign=PYBOSSA%20new%20server">pybossa</a>
+            </h6>
             {% endif %}
         </div>
     </div>
