@@ -2740,6 +2740,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	function createEditOverlay(target) {
 	  destroyEditOverlay();
+	
 	  overlay = document.createElement('div');
 	  var anchor = document.createElement('a');
 	  var parentNode = (0, _utils.findSVGContainer)(target).parentNode;
@@ -2771,7 +2772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  anchor.style.textDecoration = 'none';
 	  anchor.style.position = 'absolute';
 	  anchor.style.top = '-13px';
-	  anchor.style.left = '-13px';
+	  anchor.style.right = '-13px';
 	  anchor.style.width = '25px';
 	  anchor.style.height = '25px';
 	
@@ -2796,9 +2797,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      anchor.style.display = '';
 	    }
 	  });
-	  // overlay.addEventListener('mouseout', function () {
-	  //   anchor.style.display = 'none';
-	  // });
+	  overlay.addEventListener('mouseout', function () {
+	    anchor.style.display = 'none';
+	  });
 	}
 	
 	/**
@@ -2841,9 +2842,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  _PDFJSAnnotate2.default.getStoreAdapter().deleteAnnotation(documentId, annotationId);
 	
-		destroyEditOverlay();
-		$('#pdf-annotate-button-overlay-'+annotationId).remove();
-		$('#pdf-annotate-create-overlay-'+annotationId).remove();
+	  destroyEditOverlay();
 	}
 	
 	/**
@@ -3542,7 +3541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Event} e The DOM event to handle
 	 */
 	function handleDocumentMouseup(e) {
-		var rects = void 0;
+	  var rects = void 0;
 	  if (_type !== 'area' && (rects = getSelectionRects())) {
 	    var svg = (0, _utils.findSVGAtPoint)(rects[0].left, rects[0].top);
 	    saveRect(_type, [].concat(_toConsumableArray(rects)).map(function (r) {
@@ -3554,7 +3553,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	    }));
 	  } else if (_type === 'area' && overlay) {
-				// alert("ciao")
 	    var _svg = overlay.parentNode.querySelector('svg.annotationLayer');
 	    var rect = _svg.getBoundingClientRect();
 	    saveRect(_type, [{
