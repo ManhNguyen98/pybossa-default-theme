@@ -1,14 +1,14 @@
 footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     background-color: $grey-bg;
     color: white;
-    padding:100px 0 80px ;
-    margin:0;
-    margin-top: 25px;
+    padding:1rem 0 ;
 }
 
 footer .col-md-2 p:first-child
 { margin-top: 12px;
-  padding-bottom: 30px;
 }
 
 footer p{
@@ -20,7 +20,7 @@ footer p strong {
     color: $white;
 }
 
-footer a,{
+footer a{
     color: $semi-white;
 }
 
@@ -118,7 +118,7 @@ footer .logo_sf {
 @media(max-width:768px) {
     footer .col-sm-4 {
         margin-top: 50px;
-    
+
     }
     footer{
         text-align: center;
