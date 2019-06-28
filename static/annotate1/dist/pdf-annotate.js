@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "edfbd7e339f7764697ac";
+/******/ 	var hotCurrentHash = "c25a2e67d8a075e972d9";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -4253,7 +4253,6 @@ var SORT_TYPES = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return LocalStoreAdapter; });
 /* harmony import */ var _utils_uuid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/uuid */ "./src/utils/uuid.js");
 /* harmony import */ var _StoreAdapter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StoreAdapter */ "./src/adapter/StoreAdapter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -4388,8 +4387,6 @@ function (_StoreAdapter) {
   return LocalStoreAdapter;
 }(_StoreAdapter__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
-
-
 function _getAnnotations(documentId) {
   return JSON.parse(localStorage.getItem("".concat(documentId, "/annotations"))) || [];
 }
@@ -4412,6 +4409,8 @@ function findAnnotation(documentId, annotationId) {
 
   return index;
 }
+
+/* harmony default export */ __webpack_exports__["default"] = (LocalStoreAdapter);
 
 /***/ }),
 
