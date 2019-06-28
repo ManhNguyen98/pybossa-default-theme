@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "63b26fc17c26039f9758";
+/******/ 	var hotCurrentHash = "edfbd7e339f7764697ac";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -4294,6 +4294,7 @@ function (_StoreAdapter) {
             pageNumber: pageNumber,
             annotations: annotations
           });
+          reject(null);
         });
       },
       getAnnotation: function getAnnotation(documentId, annotationId) {
