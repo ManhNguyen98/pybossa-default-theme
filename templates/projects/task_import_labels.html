@@ -3,7 +3,55 @@ active_project = "all" %} {% set active_link = "tasks" %} {% set section =
 _('Import Labels') %} {% block projectcontent %}
 <div class="row">
   <div class="col-md-12">
-    <p>{{ _('This page shows all the available tasks for this project') }}.</p>
+    <p>{{ _('Insert your labels to input below') }}.</p>
+    <form action="/savelabels" method="POST" id="addLabelsForm">
+      <div class="form-groups">
+        <table id="tblCustomers">
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Key</th>
+              <th>Value</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr>
+              <td>1.</td>
+              <td>
+                <input type="text" name="key" />
+              </td>
+              <td><input type="text" name="value" /></td>
+              <td>
+                <button
+                  type="button"
+                  disabled="true"
+                  class="deleteBtn"
+                  onclick="deleteItem()"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="buttonWrapper float-right form-controls">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <input
+          type="button"
+          class="btn btn-danger"
+          onclick="addRow()"
+          value="Add"
+        />
+      </div>
+    </form>
   </div>
 </div>
 {% endblock %}
