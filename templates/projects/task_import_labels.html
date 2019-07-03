@@ -4,7 +4,11 @@ _('Import Labels') %} {% block projectcontent %}
 <div class="row">
   <div class="col-md-12">
     <p>{{ _('Insert your labels to input below') }}.</p>
-    <form action="/savelabels" method="POST" id="addLabelsForm">
+    <form
+      action="{{ url_for('project.import_labels', short_name=project.short_name) }}"
+      method="POST"
+      id="addLabelsForm"
+    >
       <div class="form-groups">
         <table id="tblCustomers">
           <colgroup>
