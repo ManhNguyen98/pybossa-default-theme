@@ -9,6 +9,7 @@ _('Import Labels') %} {% block projectcontent %}
       method="POST"
       id="addLabelsForm"
     >
+      {{ form.hidden_tag() }}
       <div class="form-groups">
         <table id="tblCustomers">
           <colgroup>
