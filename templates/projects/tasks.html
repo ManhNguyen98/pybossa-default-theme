@@ -29,7 +29,7 @@ project.owners_ids or current_user.admin) %}
   {% endif %}
 </div>
 <div class="row">
-  <div id="task_browse" class="col-md-6">
+  <div id="task_import_labels" class="col-md-6">
     {{ render_project_card_option(project, upload_method, title=_('Import Labels'), explanation=_('Import your labels to annotate'), link=url_for('project.task_import_labels', short_name=project.short_name), link_action_text=_('Import Labels'), icon='cloud-upload')}}
   </div>
 </div>
