@@ -1,4 +1,7 @@
 let table = document.getElementById('tblCustomers');
+$(document).ready(function() {
+  $('.deleteBtn').on('click', deleteItem);
+});
 function CountRows() {
   let rowCount = 0;
   let rows = table.getElementsByTagName('tr');
@@ -24,8 +27,12 @@ function handleKeyup() {
   });
 }
 
-function deleteItem() {
-  confirm('Are you sure?');
+function deleteItem(e) {
+  e.preventDefault();
+  console.log(e.target);
+  $(this)
+    .closest('.label')
+    .remove();
 }
 
 function addRow() {
@@ -33,31 +40,37 @@ function addRow() {
     let stt = CountRows();
     let row = buildNewRow(stt);
     $('#tableBody').append(row);
+    $('.deleteBtn').on('click', this.deleteItem);
   }
 }
 
 function checkAllFieldIsFill() {
-  let inputs = document.getElementsByTagName('input');
-  for (let i = 0; i < inputs.length; i++) {
-    const element = inputs[i];
-    if (element.value === '') {
-      return false;
-    }
+  let keys = $('input[name="key"]');
+  let values = $('input[name="value"]');
+  if (keys.val() && values.val()) {
+    return true;
+  } else {
+    return false;
   }
-  return true;
+  // for (let i = 0; i < inputs.length; i++) {
+  //   const element = inputs[i];
+  //   if (element.value === '') {
+  //     return false;
+  //   }
+  // }
+  // return true;
 }
 
 function buildNewRow(number) {
   let element = '';
-  element += '<tr>';
+  element += '<tr class="label">';
   element += '    <td>' + (number + 1) + '.</td>';
   element += '    <td>';
   element += '        <input type="text" name="key" />';
   element += '    </td>';
   element += '    <td><input type="text" name="value" /></td>';
   element += '    <td>';
-  element +=
-    '        <button type="button" disabled="true" class="deleteBtn" onclick="deleteItem()">';
+  element += '        <button type="button" class="deleteBtn">';
   element += '            <i class="fa fa-trash" aria-hidden="true"></i>';
   element += '       </button>';
   element += '    </td>';

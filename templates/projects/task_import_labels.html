@@ -27,19 +27,14 @@ _('Import Labels') %} {% block projectcontent %}
             </tr>
           </thead>
           <tbody id="tableBody">
-            <tr>
+            <tr class="label">
               <td>1.</td>
               <td>
                 <input type="text" name="key" />
               </td>
               <td><input type="text" name="value" /></td>
               <td>
-                <button
-                  type="button"
-                  disabled="true"
-                  class="deleteBtn"
-                  onclick="deleteItem()"
-                >
+                <button type="button" disabled="true" class="deleteBtn">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </td>
