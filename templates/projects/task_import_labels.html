@@ -39,7 +39,21 @@ _('Import Labels') %} {% block projectcontent %}
                 </button>
               </td>
             </tr>
-            {% endfor %} {%endif%}
+            {% endfor %} {%else%}
+            <tr class="labelImport">
+              <td>
+                <input type="text" name="key" />
+              </td>
+              <td>
+                <input type="text" name="value" />
+              </td>
+              <td>
+                <button type="button" disabled="true" class="deleteBtn">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            {%endif%}
           </tbody>
         </table>
       </div>
