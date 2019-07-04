@@ -32,7 +32,7 @@ function deleteItem(e) {
   let totalRows = CountRows();
   if (totalRows > 1) {
     $(this)
-      .closest('.label')
+      .closest('.labelImport')
       .remove();
   }
 }
@@ -54,18 +54,11 @@ function checkAllFieldIsFill() {
   } else {
     return false;
   }
-  // for (let i = 0; i < inputs.length; i++) {
-  //   const element = inputs[i];
-  //   if (element.value === '') {
-  //     return false;
-  //   }
-  // }
-  // return true;
 }
 
 function buildNewRow(number) {
   let element = '';
-  element += '<tr class="label">';
+  element += '<tr class="labelImport">';
   element += '    <td>' + (number + 1) + '.</td>';
   element += '    <td>';
   element += '        <input type="text" name="key" />';
