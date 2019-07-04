@@ -27,18 +27,22 @@ _('Import Labels') %} {% block projectcontent %}
             </tr>
           </thead>
           <tbody id="tableBody">
+            {% if form.labels %} {% for label in form .labels %}
             <tr class="labelImport">
               <td>1.</td>
               <td>
-                <input type="text" name="key" />
+                <input type="text" name="key" value="{{ label.key }}" />
               </td>
-              <td><input type="text" name="value" /></td>
+              <td>
+                <input type="text" name="value" value="{{ label.value }}" />
+              </td>
               <td>
                 <button type="button" disabled="true" class="deleteBtn">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </td>
             </tr>
+            {% endfor %} {%endif%}
           </tbody>
         </table>
       </div>
