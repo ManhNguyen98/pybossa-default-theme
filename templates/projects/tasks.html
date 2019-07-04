@@ -6,8 +6,8 @@ project.owners_ids or current_user.admin) %}
   <div id="import_tasks" class="col-md-6">
     {{ render_project_card_option(project, upload_method, title=_('Import Tasks'), explanation=_('Import tasks from templates, GDrive, or CSV'), link=url_for('project.import_task', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
   </div>
-  <div id="export_tasks" class="col-md-6">
-    {{ render_project_card_option(project, upload_method, title=_('Export Tasks'), explanation=_('Export tasks to JSON, CSV or a CKAN server'), link=url_for('project.export_to', short_name=project.short_name), link_action_text=_('Export'), icon='cloud-download')}}
+  <div id="import_label" class="col-md-6">
+    {{ render_project_card_option(project, upload_method, title=_('Import Labels'), explanation=_('Import labels'), link=url_for('project.import_labels', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
   </div>
 </div>
 <div class="row">
@@ -29,8 +29,8 @@ project.owners_ids or current_user.admin) %}
   {% endif %}
 </div>
 <div class="row">
-  <div id="import_label" class="col-md-6">
-    {{ render_project_card_option(project, upload_method, title=_('Import Labels'), explanation=_('Import labels'), link=url_for('project.import_labels', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
+  <div id="export_tasks" class="col-md-6">
+    {{ render_project_card_option(project, upload_method, title=_('Export Tasks'), explanation=_('Export tasks to JSON, CSV or a CKAN server'), link=url_for('project.export_to', short_name=project.short_name), link_action_text=_('Export'), icon='cloud-download')}}
   </div>
 </div>
 {% else %}
