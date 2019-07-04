@@ -39,8 +39,7 @@ function deleteItem(e) {
 
 function addRow() {
   if (checkAllFieldIsFill()) {
-    let stt = CountRows();
-    let row = buildNewRow(stt);
+    let row = buildNewRow();
     $('#tableBody').append(row);
     $('.deleteBtn').on('click', this.deleteItem);
   }
@@ -56,10 +55,9 @@ function checkAllFieldIsFill() {
   }
 }
 
-function buildNewRow(number) {
+function buildNewRow() {
   let element = '';
   element += '<tr class="labelImport">';
-  element += '    <td>' + (number + 1) + '.</td>';
   element += '    <td>';
   element += '        <input type="text" name="key" />';
   element += '    </td>';

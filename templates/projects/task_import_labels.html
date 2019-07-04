@@ -16,11 +16,9 @@ _('Import Labels') %} {% block projectcontent %}
             <col />
             <col />
             <col />
-            <col />
           </colgroup>
           <thead>
             <tr>
-              <th></th>
               <th>Key</th>
               <th>Value</th>
               <th></th>
@@ -29,7 +27,6 @@ _('Import Labels') %} {% block projectcontent %}
           <tbody id="tableBody">
             {% if form.labels %} {% for label in form .labels %}
             <tr class="labelImport">
-              <td>1.</td>
               <td>
                 <input type="text" name="key" value="{{ label.key }}" />
               </td>
