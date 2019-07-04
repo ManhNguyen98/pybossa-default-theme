@@ -29,10 +29,12 @@ function handleKeyup() {
 
 function deleteItem(e) {
   e.preventDefault();
-  console.log(e.target);
-  $(this)
-    .closest('.label')
-    .remove();
+  let totalRows = CountRows();
+  if (totalRows > 1) {
+    $(this)
+      .closest('.label')
+      .remove();
+  }
 }
 
 function addRow() {
