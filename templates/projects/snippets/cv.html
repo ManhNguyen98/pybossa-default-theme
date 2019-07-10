@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/static/annotate1/css/style.css" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/static/annotate1/shared/toolbar.css"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="/static/annotate1/shared/pdf_viewer.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="/static/annotate1/css/animate.min.css" />
+<div class="row">
+  <!-- Success and Error Messages for the user -->
+  <div class="col-md-6 col-md-offset-2">
+    <div id="success" class="alert alert-success" style="display:none;">
+      <a class="close">×</a>
+      <strong>Well done! Your answer has been saved</strong>
+    </div>
+    <div id="taskcompleted" class="alert alert-info" style="display:none;">
+      <strong>The task has been completed! Thanks a lot!</strong>
+    </div>
+    <div id="loading" class="alert alert-info">
+      <strong>Loading the PDF file...</strong>
+    </div>
+    <div id="finish" class="alert alert-success" style="display:none;">
+      <strong
+        >Congratulations! You have participated in all available tasks!</strong
+      >
+      <br />
+      <div class="alert-actions">
+        <a class="btn small" href="/">Go back</a>
+        <a class="btn small" href="/project">or, Check other projects</a>
+      </div>
+    </div>
+    <div id="error" class="alert alert-danger" style="display:none;">
+      <a class="close">×</a>
+      <strong
+        >Error! Something went wrong, please contact the site
+        administrators</strong
+      >
+    </div>
+  </div>
+</div>
+<!-- End Success and Error Messages for the user -->
+<div class="row skeleton">
+  <div id="question" class="col-md-12">
+    <span class="label label-info"
+      ><i class="fa fa-bullhorn"></i> Question</span
+    >
+    <strong>Question</strong>
+    <hr />
+  </div>
+</div>
+<div class="row skeleton">
+  <div id="answer" class="col-sm-12" style="text-align:center;">
+    <div>
+      <!-- Answer buttons -->
+      <div class="toolbar" id="myDiv" style="display:none;">
+        <button
+          class="cursor"
+          type="button"
+          title="Cursor"
+          data-tooltype="cursor"
+        >
+          ➚
+        </button>
+        <button
+          class="rectangle"
+          type="button"
+          title="Rectangle"
+          data-tooltype="area"
+        >
+          &nbsp;
+        </button>
+        <button
+          class="highlight"
+          type="button"
+          title="Highlight"
+          data-tooltype="highlight"
+        >
+          &nbsp;
+        </button>
+        <button class="pen" type="button" title="Pen Tool" data-tooltype="draw">
+          ✎
+        </button>
+      </div>
+      <div id="content-wrapper">
+        <div id="page-count-container">
+          Page
+          <div id="pdf-current-page"></div>
+          of
+          <div id="pdf-total-pages"></div>
+        </div>
+        <div id="pdf-loader">Loading document ...</div>
+        <div id="pdf-meta">
+          <div id="pdf-buttons">
+            <button id="pdf-prev" title="Previous">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="pdf-next" title="Next">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div id="viewer" class="pdfViewer"></div>
+      </div>
+      <div class="commentWrapper">
+        <div class="comment-item commentEntity">
+          <label for="entity"><strong>Entity:</strong></label>
+          <select name="enity">
+            <option value="" selected disabled>Select Entity</option>
+          </select>
+        </div>
+        <div class="comment-item commentAnnotation">
+          <h5>Name</h5>
+          <div class="annotationContent">
+            <div class="noAnnotation">No Annotation Selected!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" style="margin-top: 30px;">
+    <p>
+      You are working now on task:
+      <span id="task-id" class="label label-warning">#</span>
+    </p>
+    <p>
+      You have completed: <span id="done" class="label label-info"></span> tasks
+      from <span id="total" class="label label-info"></span>
+    </p>
+    <div class="progress progress-striped">
+      <div
+        id="progress"
+        rel="tooltip"
+        title="#"
+        class="progress-bar"
+        style="width: 0%;"
+        role="progressbar"
+      ></div>
+    </div>
+    <div>
+      <button class="btn btn-submit">Submit annotate!</button>
+    </div>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+<script src="http://hitconsultants.com/dragscroll_scrollsync/scrollsync.js"></script>
+<script src="http://hitconsultants.com/dragscroll_scrollsync/dragscrollable.js"></script>
+
+<script src="/static/annotate1/shared/pdf.js"></script>
+<script src="/static/annotate1/shared/pdf_viewer.js"></script>
+
+<script src="/static/annotate1/dist/index.js"></script>
