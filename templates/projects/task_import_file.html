@@ -1,7 +1,6 @@
 {% extends "projects/base.html" %} {% set active_page = "projects" %} {% set
 active_project = project.short_name %} {% set active_link = 'tasks' %} {% set
 section = _('Import Files') %} {% block projectcontent %}
-<h3>{{ _('From Local CSV Spreadsheet') }}</h3>
 <form
   method="post"
   enctype="multipart/form-data"
@@ -24,17 +23,19 @@ section = _('Import Files') %} {% block projectcontent %}
         autocomplete="off"
         required
       />
-      <input
-        id="submit"
-        type="submit"
-        value="{{ _('Import') }}"
-        class="btn btn-primary"
-      />
-      <a
-        href="{{ url_for('project.tasks', short_name=project.short_name) }}"
-        class="btn"
-        >{{ _('Cancel') }}</a
-      >
+      <div style="margin-top: 3rem;">
+        <input
+          id="submit"
+          type="submit"
+          value="{{ _('Import') }}"
+          class="btn btn-primary"
+        />
+        <a
+          href="{{ url_for('project.tasks', short_name=project.short_name) }}"
+          class="btn"
+          >{{ _('Cancel') }}</a
+        >
+      </div>
     </div>
   </fieldset>
 </form>
