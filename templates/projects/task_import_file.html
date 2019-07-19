@@ -5,7 +5,7 @@ section = _('Import files') %} {% block projectcontent %}
 <form
   method="post"
   enctype="multipart/form-data"
-  action="{{ url_for(target, short_name=project.short_name) }}"
+  action="{{ url_for(project.import_files, short_name=project.short_name) }}"
 >
   <fieldset>
     {{ form.hidden_tag() }}
