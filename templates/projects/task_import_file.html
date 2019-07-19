@@ -1,11 +1,11 @@
 {% extends "projects/base.html" %} {% set active_page = "projects" %} {% set
 active_project = project.short_name %} {% set active_link = 'tasks' %} {% set
-section = _('Import files') %} {% block projectcontent %}
+section = _('Import Files') %} {% block projectcontent %}
 <h3>{{ _('From Local CSV Spreadsheet') }}</h3>
 <form
   method="post"
   enctype="multipart/form-data"
-  action="{{ url_for(project.import_files, short_name=project.short_name) }}"
+  action="{{ url_for('project.import_files', short_name=project.short_name) }}"
 >
   <fieldset>
     {{ form.hidden_tag() }}
