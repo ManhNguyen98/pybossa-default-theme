@@ -3,8 +3,8 @@ render_project_card_option %} {% set active_link = "tasks" %} {% block
 projectcontent %} {% if current_user.is_authenticated() and (current_user.id in
 project.owners_ids or current_user.admin) %}
 <div class="row">
-  <div id="import_tasks" class="col-md-6">
-    {{ render_project_card_option(project, upload_method, title=_('Import Tasks'), explanation=_('Import tasks from templates, GDrive, or CSV'), link=url_for('project.import_task', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
+  <div id="import_files" class="col-md-6">
+    {{ render_project_card_option(project, upload_method, title=_('Import Files'), explanation=_('Import files'), link=url_for('project.import_files', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
   </div>
   <div id="import_label" class="col-md-6">
     {{ render_project_card_option(project, upload_method, title=_('Import Labels'), explanation=_('Import labels'), link=url_for('project.import_labels', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
@@ -14,8 +14,8 @@ project.owners_ids or current_user.admin) %}
   <div id="task_presenter" class="col-md-6">
     {{ render_project_card_option(project, upload_method, title=_('Task Presenter'), explanation=_('Edit the task presenter'), link=url_for('project.task_presenter_editor', short_name=project.short_name), link_action_text=_('Editor'), icon='pencil')}}
   </div>
-  <div id="import_files" class="col-md-6">
-    {{ render_project_card_option(project, upload_method, title=_('Import Files'), explanation=_('Import files'), link=url_for('project.import_files', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
+  <div id="export_tasks" class="col-md-6">
+    {{ render_project_card_option(project, upload_method, title=_('Export Tasks'), explanation=_('Export tasks to JSON, CSV or a CKAN server'), link=url_for('project.export_to', short_name=project.short_name), link_action_text=_('Export'), icon='cloud-download')}}
   </div>
 </div>
 <div class="row">
@@ -27,9 +27,9 @@ project.owners_ids or current_user.admin) %}
   </div>
 </div>
 <div class="row">
-  <div id="export_tasks" class="col-md-6">
-    {{ render_project_card_option(project, upload_method, title=_('Export Tasks'), explanation=_('Export tasks to JSON, CSV or a CKAN server'), link=url_for('project.export_to', short_name=project.short_name), link_action_text=_('Export'), icon='cloud-download')}}
-  </div>
+  <!-- <div id="import_tasks" class="col-md-6">
+    {{ render_project_card_option(project, upload_method, title=_('Import Tasks'), explanation=_('Import tasks from templates, GDrive, or CSV'), link=url_for('project.import_task', short_name=project.short_name), link_action_text=_('Import'), icon='cloud-upload')}}
+  </div> -->
   {% if autoimporter_enabled %}
   <div id="autoimport_tasks" class="col-md-6">
     {{ render_project_card_option(project, upload_method, title=_('Auto-import Tasks'), explanation=_('Import tasks regularly and automatically'), link=url_for('project.setup_autoimporter', short_name=project.short_name), link_action_text=_('Setup'), icon='magic')}}
