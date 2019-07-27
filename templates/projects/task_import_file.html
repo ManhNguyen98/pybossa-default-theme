@@ -9,10 +9,16 @@ section = _('Import Files') %} {% block projectcontent %}
   <fieldset>
     {{ form.hidden_tag() }}
     <span class="help-inline">
-      {{ _('Please choose local file with data and press Import button.') }}
+      {{
+        _('Please choose local file with data and then press "Import" button.')
+      }}
       <br />
       <p>
-        <font color="red">Note: The file select should be PDF.</font>
+        <font color="red"
+          ><strong> Note:</strong> <br />
+          The file select should be PDF.<br />Maximum upload file size:
+          5MB</font
+        >
       </p>
     </span>
     <div class="form-actions">
