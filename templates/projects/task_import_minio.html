@@ -56,12 +56,13 @@ section = _('Import tasks') %} {% from "_formhelpers.html" import render_field
       var filesInput = document.getElementById('files');
       filesInput.innerHTML = null;
       $('#objects').empty();
-      $.get('/amazon/bucket/' + bucketName)
+      $.get('/minio/bucket/' + bucketName)
         .done(function(objects) {
+          objects = JSON.parse(objects);
           objects.forEach(function(object) {
             var objectElement = $(
               '<li class="object" role="button" style="cursor:pointer;">' +
-                object +
+                object.object_name +
                 '</li>'
             );
             $('#objects').append(objectElement);
