@@ -2,9 +2,11 @@
   background-color: #007bff;
   border-radius: 3rem;
   border: #007bff 1px solid;
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #0372e9;
     border: #0372e9 1px solid;
+    outline: none;
   }
 }
 .btn-default {
