@@ -1,0 +1,36 @@
+.thumbnail.card {
+  margin-top: 20px;
+  box-shadow: 1px 1px 8px rgba($color: #000000, $alpha: 0.2);
+}
+.post-pic {
+  background: rgb(34, 108, 242);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 108, 242, 0.8547794117647058) 0%,
+    rgba(134, 50, 252, 0.8407738095238095) 100%
+  ) !important;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  i {
+    color: rgba($color: #ffffff, $alpha: 0.8) !important;
+  }
+  h3 {
+    font-weight: 600;
+  }
+}
+.caption .label-info {
+  background-color: #019a138c;
+  padding: 5px;
+  border-radius: 0;
+  text-decoration: none !important;
+  font-weight: 600;
+  color: #ffffff;
+}
+.caption p {
+  font-size: 16px;
+  margin-top: 1.5rem;
+}
+.readmore a {
+  color: #007bff;
+}

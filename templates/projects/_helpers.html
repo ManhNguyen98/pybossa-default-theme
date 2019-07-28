@@ -240,7 +240,7 @@
                {% for f in projects %}
                <div class="{{projects_class}}">
                    <div class="thumbnail card">
-                       <div class="post-pic" style="background: rgb(0, 151, 167) url({{render_url_thumbnail(f, upload_method)}}) no-repeat center top; background-size: cover;"></div>
+                       <div class="post-pic" style="background: url({{render_url_thumbnail(f, upload_method)}}) no-repeat center top; background-size: cover;"></div>
                        <div class="caption">
                            <p class='name'>{{f.name}}</p>
                            <p>{{f.description}}</p>
@@ -313,12 +313,12 @@
 <div {%if id%}id="{{id}}"{% endif %} class="thumbnail card">
     {% if background %}
         {% if background_url %}
-        <div class="post-pic" style="background: rgb(0, 151, 167) url({{background_url}}) no-repeat center top; background-size: cover;">
+        <div class="post-pic" style="background: url({{background_url}}) no-repeat center top; background-size: cover;">
         {% else %}
-        <div class="post-pic" style="background: rgb(0, 151, 167) url({{render_url_thumbnail(project, upload_method)}}) no-repeat center top; background-size: cover;">
+        <div class="post-pic" style="background: url({{render_url_thumbnail(project, upload_method)}}) no-repeat center top; background-size: cover;">
         {% endif %}
     {% else %}
-    <div class="post-pic" style="background: rgb(0, 151, 167) no-repeat center top; background-size: cover;">
+    <div class="post-pic" style="background: no-repeat center top; background-size: cover;">
     {% endif %}
         {% if not background %}
             {% if icon %}
@@ -354,7 +354,7 @@
 
 {%- macro render_project_card_coowner(short_name, user, upload_method, background=False, is_coowner=False, is_creator=False, id=None, icon=None) %}
 <div {%if id%}id="{{id}}"{% endif %} class="thumbnail card">
-    <div class="post-pic" style="background: rgb(0, 151, 167) {%- if background %}url({{account_helper.render_user_avatar_src(user, upload_method)}}){% endif -%} no-repeat center top; background-size: cover;">
+    <div class="post-pic" style="background: {%- if background %}url({{account_helper.render_user_avatar_src(user, upload_method)}}){% endif -%} no-repeat center top; background-size: cover;">
         {% if not background %}
             {% if icon %}
             <div class="row">
