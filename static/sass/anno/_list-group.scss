@@ -1,0 +1,19 @@
+.list-group {
+  border: 1px solid #ffffff;
+  border-radius: 0;
+}
+.list-group-item {
+  color: #232323;
+  border-radius: 0 !important;
+  a {
+    color: #232323;
+    text-decoration: none;
+  }
+}
+.list-group-item.active {
+  background-color: #232323;
+  &:hover,
+  &:focus {
+    background-color: #434343;
+  }
+}
