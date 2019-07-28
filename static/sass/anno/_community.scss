@@ -1,0 +1,45 @@
+.new-community {
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+  color: #2e2e2e;
+  h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  p {
+    color: #2e2e2e;
+    margin-top: 2rem;
+    i {
+      margin-right: 1rem;
+    }
+  }
+  table {
+    width: 100%;
+    margin: 3rem 0;
+    th {
+      background-color: #434343;
+      color: #ffffff;
+      padding: 1rem;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    td {
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 0.25rem 0.5rem;
+      color: #434343;
+      font-weight: 200;
+    }
+    .image-wrapper {
+      display: flex;
+      img {
+        width: 5rem;
+        height: 5rem;
+      }
+      a {
+        line-height: 2.5;
+      }
+    }
+  }
+}
