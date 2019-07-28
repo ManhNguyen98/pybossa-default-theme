@@ -1,0 +1,36 @@
+.btn-primary {
+  background-color: #007bff;
+  border-radius: 3rem;
+  border: #007bff 1px solid;
+  &:hover {
+    background-color: #0372e9;
+    border: #0372e9 1px solid;
+  }
+}
+.form-wrapper {
+  color: #2e2e2e;
+  background-color: rgba($color: #ffffff, $alpha: 0.1);
+  padding: 2rem;
+  box-shadow: 1px 1px 8px rgba($color: #000000, $alpha: 0.2);
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+  }
+  label {
+    color: #505050;
+  }
+  @media (max-width: 768px) {
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+.form-control,
+input {
+  border: 2px solid #75b5fa;
+  border-radius: 3rem;
+  background: transparent;
+  &:focus {
+    border-color: #0372e9;
+  }
+}
