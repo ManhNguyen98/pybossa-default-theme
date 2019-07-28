@@ -7,6 +7,15 @@
     border: #0372e9 1px solid;
   }
 }
+.btn-default {
+  @extend .btn-primary;
+  background-color: #434343;
+  border-color: #434343;
+  &:hover {
+    background-color: #232323;
+    border-color: #232323;
+  }
+}
 .form-wrapper {
   color: #2e2e2e;
   background-color: rgba($color: #ffffff, $alpha: 0.1);
@@ -16,9 +25,12 @@
     text-align: center;
     font-size: 3rem;
     font-weight: 600;
+    text-transform: uppercase;
   }
   label {
     color: #505050;
+    font-size: 14px;
+    font-weight: 200;
   }
   @media (max-width: 768px) {
     box-shadow: none;
@@ -32,5 +44,24 @@ input {
   background: transparent;
   &:focus {
     border-color: #0372e9;
+  }
+}
+
+.form-container {
+  margin: 0 35rem;
+  @media (min-width: 425px) and (max-width: 768px) {
+    margin: 0 15rem;
+  }
+  @media (max-width: 425px) {
+    margin: 0;
+  }
+}
+.reset-pw {
+  padding: 5rem 3rem 8rem 3rem;
+  @media (min-width: 425px) and (max-width: 768px) {
+    padding: 2rem;
+  }
+  @media (max-width: 425px) {
+    padding: 1rem;
   }
 }
