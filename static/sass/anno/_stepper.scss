@@ -1,0 +1,36 @@
+.stepper {
+  color: #2e2e2e;
+  margin: 4rem 0;
+  .subtitle {
+    text-align: center;
+    margin-bottom: 0;
+  }
+  h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+  span {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+  .step-number {
+    width: 3rem;
+    height: 3rem;
+    line-height: 2;
+    text-align: center;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  .step-title {
+    font-weight: 200;
+    line-height: 2;
+    color: #2e2e2e;
+    &:hover {
+      font-weight: 600;
+    }
+  }
+}

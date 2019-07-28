@@ -36,8 +36,56 @@ import "account/_helpers.html" as account_helper %} {% block content %}
     </div>
   </div>
 </section>
+
 {% if historical_contributions %}
 {{ helper.render_grid_projects(historical_contributions, 'Historical Contributions', upload_method, current_user, section_class='home projects', title_size='2') }}
 {% endif %} {% if featured %}
 {{ helper.render_grid_projects(featured, 'Featured Projects', upload_method, current_user, section_class='home projects', readmore_text='Contribute', title_size='2') }}
-{% endif %} {% endblock %}
+{% endif %}
+{% if not historical_contributions and not featured %}
+<section class="stepper">
+    <div class="container">
+        <div class="row">
+            <p class="subtitle">Welcome to our website</p>
+            <h3>Get started</h3>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">1</p>
+                    <p class="step-title">Create new project</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">2</p>
+                    <p class="step-title">Import your tasks</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">3</p>
+                    <p class="step-title">Import task presenter</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">4</p>
+                    <p class="step-title">Create your labels</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">5</p>
+                    <p class="step-title">Test PROJECT</p>
+                </span>
+            </div>
+            <div class="col-12 col-md-4">
+                <span>
+                    <p class="step-number">6</p>
+                    <p class="step-title">Public PROJECT</p>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
