@@ -3,7 +3,11 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="{{ url_for('home.home') }}"><img src="{{url_for('static',filename='img/default_logo.png')}}" alt="{{brand}}"></a>
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                {{_('Menu')}}
+                <ul class="bars-button">
+                    <li class="bar-item"></li>
+                    <li class="bar-item"></li>
+                    <li class="bar-item"></li>
+                </ul>
             </button>
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
@@ -16,7 +20,7 @@
             {% include '_gcs_form.html' ignore missing %}
             <ul class="nav navbar-nav navbar-right">
             {% if current_user.is_authenticated() %}
-                <li {% if active_page == 'profile' %} class="active" {% endif %}><a href="#" data-toggle="dropdown" class="dropdown-toggle"> {{ current_user.name | truncate(15,true) }} <span class="caret"></span></a>
+                <li {% if active_page == 'profile' %} class="active" {% endif %}><a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-user" aria-hidden="true"></i> {{ current_user.name | truncate(15,true) }} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url_for('account.profile', name=current_user.name) }}"> {{ _('My Profile') }}</a></li>
                     <li><a href="{{ url_for('account.projects', name=current_user.name) }}"> {{ _('My Projects') }}</a></li>
@@ -26,7 +30,7 @@
                     <li><a href="{{ url_for('admin.index') }}">{% if notify_admin %} <span class="label label-info ">{{ news |count }}</span>{% else %}{% endif %} {{ _('Admin Site') }}</a></li>
                     {% endif %}
                     <li class="divider"></li>
-                    <li><a href="{{ url_for('account.signout') }}"> {{ _('Sign Out') }}</a></li>
+                    <li><a href="{{ url_for('account.signout') }}"> {{ _('Sign Out') }} <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                 </ul>
                 </li>
             {% else %}

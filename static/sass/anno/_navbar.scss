@@ -1,0 +1,37 @@
+.navbar-default {
+  background-color: #2e2e2e;
+  .navbar-nav {
+    li {
+      a {
+        &:hover {
+          font-weight: 600;
+          color: #ffffff;
+        }
+        i {
+          margin: 0 0.5rem;
+          font-size: 18px;
+        }
+      }
+      .dropdown-menu {
+        width: 100%;
+      }
+    }
+    .open {
+      a {
+        &:hover,
+        &:focus {
+          background-color: #434343;
+        }
+      }
+    }
+    .active {
+      a {
+        background-color: #434343;
+        border-bottom: 3px solid #007bff;
+        &:hover {
+          background-color: #454545;
+        }
+      }
+    }
+  }
+}
