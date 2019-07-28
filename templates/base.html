@@ -16,7 +16,17 @@
     depends="sass/**/*.scss", "sass/_pybossa.scss"%}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
     {% endassets %}
-
+    <!-- Anno styles -->
+    {% assets filters="libsass", output="css/gen/anno.min.css",
+    depends="sass/**/*.scss", "sass/_anno.scss"%}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}" />
+    {% endassets %}
+    <!-- <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    /> -->
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
@@ -83,6 +93,10 @@
     <link rel="manifest" href="/static/img/favicon/manifest.json" />
     <link rel="mask-icon" href="/static/img/favicon.png" color="#5bbad5" />
     <link rel="shortcut icon" href="/static/img/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300&amp;display=swap"
+      rel="stylesheet"
+    />
     <meta name="msapplication-TileColor" content="#00aba9" />
     <meta name="msapplication-TileImage" content="/static/img/favicon.png" />
     <meta
@@ -102,7 +116,7 @@
     active_project = active_project | default('none') -%} {% include
     "_navbar.html" %} {% if not current_user.is_anonymous() %}
     <!-- checkpoint::logged-in::{{current_user.name}} -->
-    {% endif %} {% block content %}{% endblock %}
+    {% endif %} {% block content %}{% endblock %} {% include "_footer.html" %}
     <!-- Le javascript -->
     <script id="cookies_warning">
       window.cookieconsent_options = {

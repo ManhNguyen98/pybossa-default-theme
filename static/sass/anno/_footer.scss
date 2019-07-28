@@ -1,0 +1,23 @@
+footer {
+  padding: 0;
+  @media (max-width: 768px) {
+    text-align: left;
+  }
+}
+.big-footer {
+  background-color: #252525;
+  padding: 10rem;
+  @media screen and (max-width: 768px) {
+    padding: 3rem 0;
+  }
+  i {
+    color: #007bff;
+    margin-right: 0.5rem;
+  }
+}
+.copyright {
+  background-color: #222222;
+  padding: 1rem;
+  display: block;
+  width: 100%;
+}
