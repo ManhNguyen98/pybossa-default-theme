@@ -1,8 +1,6 @@
-{% extends "base.html" %}
-{% import "projects/_helpers.html" as helper %}
-{% import "account/_helpers.html" as account_helper %}
-{% block content %}
-<section class="home featured">
+{% extends "base.html" %} {% import "projects/_helpers.html" as helper %} {%
+import "account/_helpers.html" as account_helper %} {% block content %}
+<!-- <section class="home featured">
     <div class="jumbotron">
         <div class="container text-center firstfold">
             {% if featured | count > 0 %}
@@ -20,11 +18,26 @@
             {% endif %}
         </div>
     </div>
+</section> -->
+<section class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p class="h1">Welcome to <strong>anno.datalab.vn</strong></p class="h1">
+        <p>
+          The ultimate framework to analyze or enrich data that can't be
+          processed by machines alone. This site is based on
+          <a href="http://pybossa.com">PyBossa</a>, which is licensed under the
+          GNU Affero General Public License. The source code of this site's
+          version of <a href="http://pybossa.com">PyBossa</a> is available in
+          our GitHub repositories.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 {% if historical_contributions %}
 {{ helper.render_grid_projects(historical_contributions, 'Historical Contributions', upload_method, current_user, section_class='home projects', title_size='2') }}
-{% endif %}
-{% if featured %}
+{% endif %} {% if featured %}
 {{ helper.render_grid_projects(featured, 'Featured Projects', upload_method, current_user, section_class='home projects', readmore_text='Contribute', title_size='2') }}
-{% endif %}
-{% endblock %}
+{% endif %} {% endblock %}

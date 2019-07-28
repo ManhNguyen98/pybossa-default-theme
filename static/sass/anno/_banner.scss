@@ -1,0 +1,25 @@
+.banner {
+  text-align: center;
+  padding: 18rem 0;
+  background: rgb(34, 108, 242);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 108, 242, 0.938813025210084) 0%,
+    rgba(134, 50, 252, 0.9808298319327731) 100%
+  );
+  color: #fff;
+  @media screen and (max-width: 768px) {
+    padding: 3rem 0;
+  }
+  p {
+    color: #fff;
+  }
+  a {
+    color: #fff;
+    font-weight: 600;
+  }
+  .h1 {
+    font-weight: 600;
+    margin: 0;
+  }
+}
