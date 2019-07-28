@@ -1,0 +1,25 @@
+.projects-card {
+  color: #2e2e2e;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  h3 {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 3rem;
+    margin-top: 0;
+  }
+  .name {
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    font-size: 18px;
+    color: #2e2e2e;
+  }
+  .card {
+    border-radius: 0;
+  }
+  .subtitle {
+    margin-bottom: 0;
+  }
+}
