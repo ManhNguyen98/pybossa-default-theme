@@ -86,11 +86,13 @@ section = _('Minio Server') %} {% from "_formhelpers.html" import render_field
   $(function() {
     $('#get-bucket').on('click', function() {
       var files = [];
+      var accesskey = $('#accesskey').val();
+      var secretkey = $('#secretkey').val();
       var bucketName = $('#bucket').val();
       var filesInput = document.getElementById('files');
       filesInput.innerHTML = null;
       $('#objects').empty();
-      $.get('/minio/bucket/' + bucketName)
+      $.get('/minio/bucket/' + accesskey + '/' + secretkey + '/' + bucketName)
         .done(function(objects) {
           objects = JSON.parse(objects);
           $('#objects-container').prepend('<h4>Select files to import</h4>');
