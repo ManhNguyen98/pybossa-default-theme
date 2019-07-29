@@ -6,7 +6,7 @@
 {% block projectcontent %}
 <div class ="container">
 <div class="col-sm-9 col-md-9" style="margin-top:30px;">
-<h1>{{ _('Manage Co-owners') }}</h1>
+<p>{{ _('Manage Co-owners') }}</p>
 {% from "_formhelpers.html" import render_field %}
 
 <div class="row">
@@ -34,7 +34,7 @@
 
 {% if coowners %}
 <h1>
-<h1>{{ _('Current Co-owners') }}</h1>
+<p>{{ _('Current Co-owners') }}</p>
 <div class="row">
     {% for user in coowners %}
     <div class="col-sm-4 col-md-4">

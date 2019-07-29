@@ -9,6 +9,10 @@
     outline: none;
   }
 }
+.btn-sm {
+  @extend .btn-default;
+  color: #ffffff;
+}
 .btn-default {
   @extend .btn-primary;
   background-color: #434343;
