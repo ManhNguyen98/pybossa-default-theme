@@ -95,7 +95,9 @@ section = _('Minio Server') %} {% from "_formhelpers.html" import render_field
       $.get('/minio/bucket/' + accesskey + '/' + secretkey + '/' + bucketName)
         .done(function(objects) {
           objects = JSON.parse(objects);
-          $('#objects-container').prepend('<h4>Select files to import</h4>');
+          $('#objects-container').prepend(
+            '<div class="selectfiles-wrapper"><h4>Select files to import</h4><button class="select-all" id="select-all">Select All</button></div>'
+          );
           objects.forEach(function(object) {
             var objectElement = $(
               '<li class="object" role="button" style="cursor:pointer;">' +
@@ -132,6 +134,31 @@ section = _('Minio Server') %} {% from "_formhelpers.html" import render_field
               });
             });
           });
+          $('#select-all')
+            .off('click')
+            .on('click', function(e) {
+              e.preventDefault();
+              $('.object').each(function() {
+                var objectDomElement = $(this);
+                var objectName = $(this).text();
+                objectDomElement.addClass('selected');
+              });
+              objects.forEach(obj => {
+                files.push(obj.object_name);
+              });
+              files.forEach(function(file, index) {
+                var element = document.createElement('li');
+                var content = document.createTextNode(file);
+                var input = document.createElement('input');
+                input.id = 'files-' + index;
+                input.type = 'hidden';
+                input.name = 'files-' + index;
+                input.value = file;
+                element.appendChild(input);
+                element.appendChild(content);
+                filesInput.appendChild(element);
+              });
+            });
         })
         .fail(function(resp) {
           if (resp.status === 403)

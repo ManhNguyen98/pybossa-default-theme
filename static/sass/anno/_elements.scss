@@ -13,7 +13,8 @@
   @extend .btn-primary;
   background-color: #434343;
   border-color: #434343;
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #232323;
     border-color: #232323;
   }
@@ -103,4 +104,22 @@ input {
 }
 .choosefiles label span {
   font-size: 16px;
+}
+.selectfiles-wrapper {
+  display: flex;
+  .select-all {
+    color: #007bff;
+    background-color: transparent;
+    border: none;
+    margin-left: 1rem;
+    &:hover {
+      color: #0372e9;
+      text-decoration: underline;
+      outline: none;
+    }
+    &:focus {
+      color: #0372e9;
+      outline: none;
+    }
+  }
 }
