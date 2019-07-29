@@ -1,9 +1,32 @@
 {% extends "projects/base.html" %} {% set active_page = "projects" %} {% set
 active_project = "all" %} {% set active_link = "tasks" %} {% set section =
-_('Import Labels') %} {% block projectcontent %}
+_('Create Labels') %} {% block projectcontent %}
+<section class="small-stepper">
+  <div class="container-fluid">
+    <div class="col-12">
+      <span>
+        <p class="step-number">1</p>
+        <p class="step-title">
+          Enter your pair <em>Key </em>-<em> Value</em> below
+        </p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">2</p>
+        <p class="step-title">Click <em>New</em> button to add new labels</p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">3</p>
+        <p class="step-title">Click <em>Save</em> button to submit</p>
+      </span>
+    </div>
+  </div>
+</section>
 <div class="row">
   <div class="col-md-12">
-    <p>{{ _('Insert your labels to input below') }}.</p>
     <form
       action="{{ url_for('project.import_labels', short_name=project.short_name) }}"
       method="POST"
@@ -64,9 +87,9 @@ _('Import Labels') %} {% block projectcontent %}
         <button class="btn btn-primary" type="submit">Save</button>
         <input
           type="button"
-          class="btn btn-danger"
+          class="btn btn-default"
           onclick="addRow()"
-          value="Add"
+          value="New"
         />
       </div>
     </form>
