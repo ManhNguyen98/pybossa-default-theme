@@ -67,3 +67,40 @@ input {
     padding: 1rem;
   }
 }
+
+.inputfile {
+  width: 10rem;
+  height: 10rem;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.inputfile + label {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  border: 3px dotted rgba($color: #000000, $alpha: 0.2);
+  font-size: 5rem;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  i {
+    vertical-align: bottom;
+  }
+}
+
+.choosefiles {
+  text-align: center;
+  margin: 4rem 0;
+  border: 3px dotted rgba($color: #000000, $alpha: 0.2);
+  padding: 3rem;
+}
+.choosefiles label span {
+  font-size: 16px;
+}

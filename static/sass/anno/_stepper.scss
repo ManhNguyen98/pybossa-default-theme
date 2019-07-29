@@ -37,3 +37,12 @@
     }
   }
 }
+
+.small-stepper {
+  @extend .stepper;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  span {
+    margin-bottom: 0;
+  }
+}

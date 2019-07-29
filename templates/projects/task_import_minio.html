@@ -1,25 +1,46 @@
 {% extends "projects/base.html" %} {% set active_page = "projects" %} {% set
 active_project = project.short_name %} {% set active_link = 'tasks' %} {% set
-section = _('Import tasks') %} {% from "_formhelpers.html" import render_field
+section = _('Minio Server') %} {% from "_formhelpers.html" import render_field
 %} {% block projectcontent %}
 <style type="text/css">
   .selected {
     background-color: #d4d4d4;
   }
 </style>
-<h3>{{ _('From an Minio server bucket') }}</h3>
-<span class="help-inline"
-  >{{ _('For more information, please look at') }}
-  <a
-    href="http://docs.pybossa.com/user/overview/#importing-the-tasks-from-an-amazon-s3-bucket"
-    target="_blank"
-    >{{ _('the documentation') }}.</a
-  ></span
->
-<br />
-<div id="objects-container" class="row">
-  <ul id="objects"></ul>
-</div>
+<section class="small-stepper">
+  <div class="container-fluid">
+    <div class="col-12">
+      <span>
+        <p class="step-number">1</p>
+        <p class="step-title">Enter your <em>Access Key</em></p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">2</p>
+        <p class="step-title">Enter your <em>Secret Key</em></p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">3</p>
+        <p class="step-title">Enter your <em>Bucket name</em></p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">4</p>
+        <p class="step-title">Select <em>Files</em> you want to import</p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">5</p>
+        <p class="step-title">Click <em>Import</em> button to submit</p>
+      </span>
+    </div>
+  </div>
+</section>
 {% if form %}
 <form
   class="form-group"
@@ -27,9 +48,22 @@ section = _('Import tasks') %} {% from "_formhelpers.html" import render_field
   action="{{ url_for('project.import_minio', short_name=project.short_name) }}"
 >
   <fieldset>
+    <span class="label label-warning"
+      ><i class="fa fa-bullhorn"></i> {{ _('Note') }}</span
+    >
+    {{ _('If you do not have Access Key and Secret Key,') }}
+    <a href="mailto:anhboy207@gmail.com"> contact us</a>
+    <div style="margin: 1rem;"></div>
     {{ form.hidden_tag() }}
     {{ form.files(style="display: none;") }}
-    {{ render_field(form.bucket, placeholder=_("Name of the Minio Server bucket")) }}
+    {{ render_field(form.accesskey, placeholder=_("Enter your Access Key")) }}
+    {{ render_field(form.secretkey, placeholder=_("Enter your Secret Key")) }}
+    {{ render_field(form.bucket, placeholder=_("Enter your Bucket Name")) }}
+  </fieldset>
+  <fieldset>
+    <div id="objects-container">
+      <ul id="objects"></ul>
+    </div>
   </fieldset>
   <a id="get-bucket" class="btn btn-default">{{ _('Search in bucket') }}</a>
   <input
@@ -59,6 +93,7 @@ section = _('Import tasks') %} {% from "_formhelpers.html" import render_field
       $.get('/minio/bucket/' + bucketName)
         .done(function(objects) {
           objects = JSON.parse(objects);
+          $('#objects-container').prepend('<h4>Select files to import</h4>');
           objects.forEach(function(object) {
             var objectElement = $(
               '<li class="object" role="button" style="cursor:pointer;">' +

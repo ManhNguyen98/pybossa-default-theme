@@ -1,6 +1,22 @@
 {% extends "projects/base.html" %} {% set active_page = "projects" %} {% set
 active_project = project.short_name %} {% set active_link = 'tasks' %} {% set
-section = _('Import Files') %} {% block projectcontent %}
+section = _('Local Files') %} {% block projectcontent %}
+<section class="small-stepper">
+  <div class="container-fluid">
+    <div class="col-12">
+      <span>
+        <p class="step-number">1</p>
+        <p class="step-title">Choose Files</p>
+      </span>
+    </div>
+    <div class="col-12">
+      <span>
+        <p class="step-number">2</p>
+        <p class="step-title">Click <em>Import</em> button to submit</p>
+      </span>
+    </div>
+  </div>
+</section>
 <form
   method="post"
   enctype="multipart/form-data"
@@ -8,28 +24,27 @@ section = _('Import Files') %} {% block projectcontent %}
 >
   <fieldset>
     {{ form.hidden_tag() }}
-    <span class="help-inline">
-      {{
-        _('Please choose local file with data and then press "Import" button.')
-      }}
-      <br />
-      <p>
-        <font color="red"
-          ><strong> Note:</strong> <br />
-          The file select should be PDF.<br />Maximum upload file size:
-          5MB</font
-        >
-      </p>
-    </span>
+    <span class="label label-warning"
+      ><i class="fa fa-bullhorn"></i> {{ _('Note') }}</span
+    >
+    {{ _('Maximum upload file size: 5MB') }}
     <div class="form-actions">
-      <input
-        type="file"
-        name="files[]"
-        multiple="true"
-        autocomplete="off"
-        required
-      />
-      <div style="margin-top: 3rem;">
+      <div class="choosefiles">
+        <input
+          type="file"
+          name="files[]"
+          multiple="true"
+          autocomplete="off"
+          class="inputfile"
+          data-multiple-caption="{count} files selected"
+          required
+        />
+        <label for="files[]"
+          ><i class="fa fa-cloud-upload" aria-hidden="true"></i>
+        </label>
+        <p>Choose Files</p>
+      </div>
+      <div>
         <input
           id="submit"
           type="submit"
@@ -38,7 +53,7 @@ section = _('Import Files') %} {% block projectcontent %}
         />
         <a
           href="{{ url_for('project.tasks', short_name=project.short_name) }}"
-          class="btn"
+          class="btn btn-default"
           >{{ _('Cancel') }}</a
         >
       </div>

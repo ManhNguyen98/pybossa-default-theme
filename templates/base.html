@@ -107,6 +107,11 @@
     {% include '_ga.html' ignore missing %}
     <!-- Google Custom Search -->
     {% include '_gcs.html' ignore missing %}
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
@@ -140,6 +145,25 @@
     <script src="/static/annotate1/main.js"></script>
     <script>
       handleKeyup();
+    </script>
+    <script>
+      var inputs = document.querySelectorAll('.inputfile');
+      Array.prototype.forEach.call(inputs, function(input) {
+        var label = $('.choosefiles label'),
+          labelVal = 'Choose Files';
+
+        input.addEventListener('change', function(e) {
+          var fileName = '';
+          if (this.files && this.files.length > 1)
+            fileName = (
+              this.getAttribute('data-multiple-caption') || ''
+            ).replace('{count}', this.files.length);
+          else fileName = e.target.value.split('\\').pop();
+
+          if (fileName) $('.choosefiles p').text(fileName);
+          else $('.choosefiles p').text(labelVal);
+        });
+      });
     </script>
   </body>
 </html>
