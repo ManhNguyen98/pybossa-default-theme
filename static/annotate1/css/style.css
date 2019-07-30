@@ -23,39 +23,110 @@ body {
   right: 0;
   bottom: 0;
 }
-
-.toolbar {
-  margin-top: 60px;
+.template-page-container {
+  background-color: #fff;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
 }
-
-#content-wrapper {
+.template-page-control {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.template-page-control button {
+  background: none;
+  border: 0;
+  color: #007bff;
+  margin: 0 5px;
+}
+.template-page-control button:focus,
+.template-page-control button:hover {
+  outline: none;
+  color: #0372e9;
+}
+.toolbar {
+  margin: 2rem 0;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem 0.5rem;
+}
+.toolbar a {
+  color: inherit;
+  text-decoration: none;
+}
+.toolbar div {
+  text-align: center;
+}
+.toolbar button {
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  font-size: 15px;
+  padding: 3px;
+  text-align: center;
+  text-shadow: 1px 1px 0 #fff;
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  outline: none;
+}
+.toolbar button:after {
+  content: ' ';
+  display: block;
+}
+.toolbar button.active {
+  border-color: #339af0;
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.25);
+}
+.toolbar button:hover,
+.toolbar button:focus {
+  border-color: #339af0;
+}
+.toolbar button.pen {
+  font-size: 16px;
+}
+.toolbar button.comment {
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 0 0 #000;
+}
+.toolbar button.rectangle:after {
+  width: 16px;
+  height: 16px;
+  border: 1px solid red;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 200px;
-  bottom: 0;
-  height: 100%;
-  /* width: 100%; */
-  overflow: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.toolbar button.highlight:after {
+  width: 17px;
+  height: 17px;
+  background: yellow;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.toolbar button.text:after {
+  content: 'T';
+  font-family: 'Times New Roman';
 }
 /* Style new comment */
 .commentWrapper {
-  position: absolute;
-  top: 35px;
-  right: -15px;
-  bottom: 0;
   overflow: auto;
-  padding: 0 15px;
+  margin: 1rem 0;
 }
 .comment-item {
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
   background-color: #fff;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
 }
 .commentEntity {
   margin-bottom: 10px;
+  border: none;
+  box-shadow: none;
 }
 .commentEntity label {
   margin-right: 10px;
@@ -90,6 +161,11 @@ body {
   display: inline-block;
   margin-right: 5px;
   border: 2px solid #fff;
+}
+
+#content-wrapper {
+  /* width: 100%; */
+  overflow: auto;
 }
 /* end style */
 .pdfViewer .page {
@@ -269,41 +345,6 @@ body {
   position: absolute;
   top: 20px;
   right: -125px;
-}
-#pdf-prev {
-  position: absolute;
-  top: 40%;
-  left: 0%;
-  width: 4rem;
-  height: 4rem;
-  z-index: 900;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.75);
-  outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.75);
-  color: #fff;
-}
-#pdf-prev:hover {
-  background-color: #59b5fc;
-  border: 1px solid #59b5fc;
-}
-
-#pdf-next {
-  position: absolute;
-  top: 40%;
-  right: 0%;
-  width: 4rem;
-  height: 4rem;
-  z-index: 1000;
-  border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.75);
-  outline: none;
-  border: 1px solid rgba(0, 0, 0, 0.75);
-  color: #fff;
-}
-#pdf-next:hover {
-  background-color: #59b5fc;
-  border: 1px solid #59b5fc;
 }
 
 h1 {

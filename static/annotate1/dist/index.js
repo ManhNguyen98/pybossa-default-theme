@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "cdbf549a8bd1c890eff5";
+/******/ 	var hotCurrentHash = "24e5b588be04ad767bab";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -946,11 +946,11 @@ var PybossaLoader = {
         var canvas = $('<canvas/>', {
           id: 'canvas_' + task.id
         });
-        var viewport = $('<div/>', {
+        var viewport = $('<div style="display:none"/>', {
           id: 'viewport_' + task.id
         });
-        viewport.css('width', '100%');
-        viewport.css('height', '150vh');
+        viewport.css('width', '100%'); // viewport.css('height', '150vh');
+
         viewport.css('display', 'none');
         viewport.append(canvas);
         $('#answer').append(viewport);
