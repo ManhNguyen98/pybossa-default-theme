@@ -21,6 +21,14 @@ footer {
   padding: 1rem;
   display: block;
   width: 100%;
+  .auth {
+    display: none;
+  }
+  &:hover {
+    .auth {
+      display: inline;
+    }
+  }
 }
 .logo-pybossa {
   margin-top: 3rem;

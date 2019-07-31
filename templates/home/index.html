@@ -36,14 +36,16 @@ import "account/_helpers.html" as account_helper %} {% block content %}
     </div>
   </div>
 </section>
-
+{% if projects %}
+{{ helper.render_grid_projects(projects, 'Public Projects', upload_method, current_user, section_class='home projects', title_size='2') }}
+{% endif %}
 {% if historical_contributions %}
 {{ helper.render_grid_projects(historical_contributions, 'Historical Contributions', upload_method, current_user, section_class='home projects', title_size='2') }}
 {% endif %} {% if featured %}
 {{ helper.render_grid_projects(featured, 'Featured Projects', upload_method, current_user, section_class='home projects', readmore_text='Contribute', title_size='2') }}
 {% endif %}
 {% if not historical_contributions and not featured %}
-<section class="stepper">
+<!-- <section class="stepper">
     <div class="container">
         <div class="row">
             <p class="subtitle">anno.datalab.vn</p>
@@ -86,6 +88,6 @@ import "account/_helpers.html" as account_helper %} {% block content %}
             </div>
         </div>
     </div>
-</section>
+</section> -->
 {% endif %}
 {% endblock %}
