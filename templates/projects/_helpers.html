@@ -40,9 +40,13 @@
 <ul class="list-group" style="margin-top: 21px;">
     <li class="list-group-item {% if active_link=="info"%}active{% endif %}"><a href="{{url_for('project.details', short_name=project.short_name)}}">{{_('Info')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
     <li class="list-group-item {% if active_link=="results"%}active{% endif %}"><a href="{{url_for('project.results', short_name=project.short_name)}}">{{_('Results')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
-    <li class="list-group-item {% if active_link=="tasks"%}active{% endif %}"><a href="{{url_for('project.tasks', short_name=project.short_name)}}">{{_('Tasks')}} {{daniel}}</a>{% if task_subsection_1_text %}<a href="{{task_subsection_1}}">{{task_subsection_1_text}}</a>{% endif %}<i class="fa fa-chevron-right pull-right"></i></li>
     <li class="list-group-item {% if active_link=="stats"%}active{% endif %}"><a href="{{url_for('project.show_stats', short_name=project.short_name)}}">{{_('Statistics')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
     {% if ( current_user.is_authenticated() and current_user.id in project.owners_ids) or current_user.admin %}
+    <li class="list-group-item {% if active_link=="tasks"%}active{% endif %}"><a
+            href="{{url_for('project.tasks', short_name=project.short_name)}}">{{_('Tasks')}}
+            {{daniel}}</a>{% if task_subsection_1_text %}<a
+            href="{{task_subsection_1}}">{{task_subsection_1_text}}</a>{% endif %}<i
+            class="fa fa-chevron-right pull-right"></i></li>
     <li class="list-group-item {% if active_link=="settings"%}active{% endif %}"><a href="{{url_for('project.settings', short_name=project.short_name)}}">{{_('Settings')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
     {% endif %}
     {% if ( current_user.is_authenticated() and current_user.id in project.owners_ids
@@ -55,7 +59,7 @@
         {% endif %}
     {% endif %}
     <li class="list-group-item {% if active_link=="blog"%}active{% endif %}"><a href="{{url_for('project.show_blogposts', short_name=project.short_name)}}">{{_('Blog')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
-    <li class="list-group-item {% if active_link=="contribute"%}active{% endif %}"><a href="{{url_for('project.presenter', short_name=project.short_name)}}">{{_('Contribute')}}</a><i class="fa fa-chevron-right pull-right"></i></li>
+    <!-- <li class="list-group-item {% if active_link=="contribute"%}active{% endif %}"><a href="{{url_for('project.presenter', short_name=project.short_name)}}">{{_('Contribute')}}</a><i class="fa fa-chevron-right pull-right"></i></li> -->
 </ul>
 {% endmacro %}
 
@@ -198,7 +202,8 @@
 <p><em>{{ overall_progress | round | int }}% {{_('completed')}}</em></p>
 {% endmacro %}
 
-{% macro render_contribute_button(project, n_task_runs) %}
+{% macro render_contribute_button(project, current_user, n_task_runs) %}
+{% if (current_user.is_authenticated())%}
     {% if project['contrib_button'] == 'completed' %}
     <a href="{{url_for('project.tasks', short_name=project.short_name)}}" class="btn btn-primary btn-contribute">{{ _('Done! View results') }}</a>
     {% endif %}
@@ -217,6 +222,7 @@
         <a href="{{url_for('project.publish', short_name=project.short_name)}}" class="btn btn-default">{{ _('Publish it') }}</a>
     </div>
         {% endif %}
+        {%endif%}
 {% endmacro %}
 
 {% macro render_grid_projects(projects, title, upload_method, id=None, title_class='col-md-offset-1 col-md-10', projects_class='col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-4', container=True, subheading=None, active_cat=None, featured=False, section_class=None, readmore_text=None, title_size='1') %}
