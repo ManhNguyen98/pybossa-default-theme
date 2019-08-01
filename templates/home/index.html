@@ -36,9 +36,6 @@ import "account/_helpers.html" as account_helper %} {% block content %}
     </div>
   </div>
 </section>
-{% if projects %}
-{{ helper.render_grid_projects(projects, 'Public Projects', upload_method, current_user, section_class='home projects', title_size='2') }}
-{% endif %}
 {% if historical_contributions %}
 {{ helper.render_grid_projects(historical_contributions, 'Historical Contributions', upload_method, current_user, section_class='home projects', title_size='2') }}
 {% endif %} {% if featured %}
@@ -89,5 +86,8 @@ import "account/_helpers.html" as account_helper %} {% block content %}
         </div>
     </div>
 </section> -->
+{% endif %}
+{% if projects %}
+{{ helper.render_grid_projects(projects, 'Public Projects', upload_method, current_user, section_class='home projects', title_size='2') }}
 {% endif %}
 {% endblock %}
