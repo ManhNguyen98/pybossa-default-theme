@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "24e5b588be04ad767bab";
+/******/ 	var hotCurrentHash = "9d3cd031f87be4ae58e2";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -974,7 +974,7 @@ var PybossaLoader = {
   presentTask: function presentTask() {
     _pybossa__WEBPACK_IMPORTED_MODULE_4__["pybossa"].presentTask(function (task, deferred) {
       if (!$.isEmptyObject(task)) {
-        PybossaLoader.loadUserProgress();
+        // PybossaLoader.loadUserProgress();
         _src_config__WEBPACK_IMPORTED_MODULE_2__["default"].documentId = task.info.pdf_url;
         $('textarea #text').val('');
         $('#viewport_' + task.id).show(); // PybossaLoader.showPaginationOptions(task);
@@ -1021,6 +1021,8 @@ var PybossaLoader = {
                     setTimeout(function () {
                       $('#success').fadeOut();
                     }, 2000);
+                  })["catch"](function () {
+                    console.log('Something went wrong!');
                   });
                 })["catch"](function () {
                   console.log('Catch');
@@ -14379,10 +14381,12 @@ var getLabels = new Promise(function (resolve, reject) {
   });
 });
 getLabels.then(function (data) {
-  data.forEach(function (item) {
-    item.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-  });
-  labels = data;
+  if (data) {
+    data.forEach(function (item) {
+      item.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+    });
+    labels = data;
+  }
 });
 /**
  * Add Annotation Widget
