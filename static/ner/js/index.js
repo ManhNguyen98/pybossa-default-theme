@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "4c49e175a8d6b9aae40d";
+/******/ 	var hotCurrentHash = "c5568f4f843472be5060";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -833,37 +833,56 @@ let paragraphsData = [{
 }];
 const PybossaLoader = {
   taskLoaded: function () {
-    _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].taskLoaded(function (task, deferred) {
+    _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].taskLoaded((task, deferred) => {
       if (!$.isEmptyObject(task)) {
-        console.log(task.state);
+        console.log('taskLoaded:', task);
 
         if (task.state == 'completed') {
           $('#answer').hide();
           $('#taskcompleted').show();
         } else {
-          paragraphId = task.id;
-          paragraphsData = task.info.data;
-          $('#content-wrapper div').text(paragraphsData);
-          $('#loading').hide();
-          $('#next').click(() => {
-            let answer = {
-              HTML: JSON.parse(localStorage.getItem('/annotateHTML')),
-              data: JSON.parse(localStorage.getItem('/annotateData'))
-            };
-            _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].saveTask(paragraphId, answer).done(function (data) {
-              /// Remove annotations
-              localStorage.removeItem(`/annotateHTML`);
-              localStorage.removeItem('/annotateData');
-              window.location.reload();
-            }).catch(function () {
-              console.log('Something went wrong!');
-            });
-          });
+          // paragraphId = task.id;
+          // paragraphsData = task.info.data;
+          deferred.resolve(task);
         }
       } else {
+        deferred.resolve(task);
         $('#answer').hide();
         $('#taskcompleted').show();
         $('#loading').hide();
+      }
+    });
+  },
+  presentTask: function () {
+    _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].presentTask((task, deferred) => {
+      console.log('taskPresent:', task);
+
+      if (!$.isEmptyObject(task)) {
+        // PybossaLoader.loadUserProgress();
+        paragraphId = task.id;
+        paragraphsData = task.info.data; // Render Text
+
+        renderData();
+        $('#loading').hide(); // Submit answer
+
+        $('#next').off('click').on('click', () => {
+          let answer = {
+            HTML: JSON.parse(localStorage.getItem('/annotateHTML')),
+            data: JSON.parse(localStorage.getItem('/annotateData'))
+          };
+          _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].saveTask(paragraphId, answer).done(function () {
+            /// Remove annotations
+            localStorage.removeItem(`/annotateHTML`);
+            localStorage.removeItem('/annotateData');
+            deferred.resolve(); // window.location.reload();
+          }).catch(function () {
+            console.log('Something went wrong!');
+          });
+        });
+      } else {
+        deferred.resolve(task);
+        $('.skeleton').hide();
+        $('#finish').fadeIn();
       }
     });
   }
@@ -888,11 +907,13 @@ const PybossaLoader = {
 
 (function () {
   PybossaLoader.taskLoaded();
+  PybossaLoader.presentTask();
   _pybossa__WEBPACK_IMPORTED_MODULE_0__["pybossa"].run(projectname);
 })(); // Restore old data
 
 
-(function () {
+function renderData() {
+  console.log(paragraphId);
   let oldAnnotates = JSON.parse(localStorage.getItem('/annotateHTML'));
 
   if (oldAnnotates) {
@@ -901,8 +922,10 @@ const PybossaLoader = {
     if (annotate) {
       $('#content-wrapper').html(annotate.innerHTML);
     }
+  } else {
+    $('#content-wrapper div').text(paragraphsData);
   }
-})(); // Add event btn delete click
+} // Add event btn delete click
 
 
 (function () {
@@ -992,7 +1015,7 @@ function editValue(val) {
 }
 
 function saveAnnotation() {
-  let hasAnnotate = $('#content-wrapper').has('span .annotate').length;
+  let hasAnnotate = $('#content-wrapper').has('div .annotate').length;
 
   if (hasAnnotate > 0) {
     let temp = {
