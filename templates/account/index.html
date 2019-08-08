@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% set active_page = "community" %} {% import
 "privacy/locked.html" as privacy %} {% import "account/_helpers.html" as helper
 %} {% from "projects/_helpers.html" import broken_image %} {% block content %}
-<h1 class="account community">
+<section class="account community">
   <div class="container">
     <div class="row">
       <div class="col-md-offset-2 col-md-8 new-community">
@@ -43,8 +43,9 @@
             </tr>
             {% endfor %}
           </tbody>
+          {% endif %}
         </table>
-        {% endif %} {% endif %}
+        {% endif %}
       </div>
       {% if pagination.pages > 1 %}
       <div class="col-md-offset-2 col-md-8 text-center">
@@ -54,14 +55,6 @@
     </div>
   </div>
 
-  <script>
-    $('a[rel=popover]').popover({
-      html: true,
-      animate: true,
-      trigger: 'hover',
-      placement: 'bottom'
-    });
-  </script>
   {{ broken_image() }}
-  {% endblock %}
-</h1>
+</section>
+{% endblock %}
