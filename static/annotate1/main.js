@@ -35,6 +35,18 @@ function deleteItem(e) {
       .closest('.labelImport')
       .remove();
   }
+  const labelId = $(this).attr('data-id');
+  $.ajax({
+    type: 'POST',
+    url: `labels/${labelId}/delete`,
+    contentType: 'application/json',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    success: function(res) {
+      console.log(res)
+    },
+  });
 }
 
 function addRow() {
@@ -43,6 +55,7 @@ function addRow() {
     $('#tableBody').append(row);
     $('.deleteBtn').on('click', this.deleteItem);
   }
+  $('#createLabel').css('display', 'inline');
 }
 
 function checkAllFieldIsFill() {

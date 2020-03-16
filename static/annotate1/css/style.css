@@ -403,6 +403,10 @@ hr {
   background-color: transparent;
 }
 
+#tblCustomers td input:disabled {
+  border: none;
+}
+
 #tblCustomers td button {
   background-color: transparent;
   outline: none;

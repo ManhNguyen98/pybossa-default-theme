@@ -13,7 +13,7 @@
   li:nth-child(even) {
     width: 75%;
   }
-  li:nth-last-child() {
+  li:nth-last-child(1) {
     margin-bottom: 0;
   }
 }

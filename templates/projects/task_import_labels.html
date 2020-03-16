@@ -48,16 +48,17 @@ _('Create Labels') %} {% block projectcontent %}
             </tr>
           </thead>
           <tbody id="tableBody">
-            {% if form.labels %} {% for label in form .labels %}
+            {% if form.labels %}
+            {% for label in form.labels %}
             <tr class="labelImport">
               <td>
-                <input type="text" name="key" value="{{ label.key }}" />
+                <input type="text" name="key" value="{{ label.key }}" disabled/>
               </td>
               <td>
-                <input type="text" name="value" value="{{ label.value }}" />
+                <input type="text" name="value" value="{{ label.value }}" disabled/>
               </td>
               <td>
-                <button type="button" class="deleteBtn">
+                <button type="button" class="deleteBtn" data-id="{{label.id}}">
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
               </td>
@@ -84,7 +85,7 @@ _('Create Labels') %} {% block projectcontent %}
         class="buttonWrapper text-right form-controls"
         style="margin-top: 1rem;"
       >
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit" id="createLabel" style="display: none;">Save</button>
         <input
           type="button"
           class="btn btn-default"
