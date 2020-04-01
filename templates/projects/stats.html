@@ -5,422 +5,497 @@
 {% block projectcontent %}
 <!-- Leaflet maps -->
 <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.css" />
- <!--[if lte IE 8]>
-     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
- <![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.4/leaflet.ie.css" />
+<![endif]-->
 <!-- Default Style -->
-<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
-<link href="{{url_for('static', filename='css/stats/MarkerCluster.css')}}" rel="stylesheet" type="text/css">
-<link href="{{url_for('static', filename='css/stats/MarkerCluster.Default.css')}}" rel="stylesheet" type="text/css">
-<script src="http://cdn.leafletjs.com/leaflet-0.4/leaflet.js"></script>
-<script src="{{url_for('static', filename='js/stats/flotr2.min.js')}}" type="text/javascript"></script>
-<script src="{{url_for('static', filename='js/stats/leaflet.markercluster.js')}}" type="text/javascript"></script>
-<script>
-    var projectStats = {{projectStats|safe}};
-</script>
-        {% if enforce_privacy and (current_user.is_anonymous() or (current_user.is_authenticated and not current_user.admin)) %}
-        {{ privacy.render_lock_page() }}
-        {% else %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<style>
+    .text-blue {
+        color: #3ab0d5;
+        font-weight: 600;
+    }
+    .text-red {
+        color: #e95420;
+        font-weight: 600;
+    }
+    .bg-light {
+        background-color: #fff;
+        padding: 0.8rem;
+        text-align: center;
+    }
+    .answers-tbl {
+        width: 100%;
+    }
+    .answers-tbl td{
+        border: 1px solid #cccccc;
+        padding: 16px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .task-leaderboard {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .task-leaderboard li{
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    .rank {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border: 3px solid #dbe2e6;
+        background-color: #fff;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    .rank p {
+        margin: 0;
+    }
+    .rank-1 {
+        border-color: #febe26;
+    }
+    .rank-2 {
+        border-color: #94aec0;
+    }
+    .rank-3 {
+        border-color: #ca8850;
+    }
+    .rank-1 p {
+        color: #febe26;
+        font-weight: bold;
+    }
+    .rank-2 p {
+        color: #94aec0;
+        font-weight: bold;
+    }.rank-3 p {
+        color: #ca8850;
+        font-weight: bold;
+    }
+    .task-leaderboard .task-info{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        background-color: #fff;
+        padding: 1.5rem;
+        border-radius: 3rem;
+        font-weight: bold;
+    }
+    .task-progress-label {
+        color: #fb7171;
+        width: 10%;
+        text-align: center;
+    }
+    .task-leaderboard .task-name {
+        width: 40%;
+    }
+    .task-name span {
+        border-radius: 2rem;
+        box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        margin-left: 0.5rem;
+    }
+    .big-name {
+        font-size: 1.5rem;
+    }
+    .task-leaderboard .task-progress{
+        width: 50%;
+    }
+    .task-leaderboard .task-progress .progress {
+        border-radius: 2rem;
+        height: 1rem;
+        background-color: #dbe2e6;
+        outline: none;
+        border: none;
+        margin: 0;
+    }
+    .task-leaderboard .task-progress .progress-bar{
+        background-color: #fb7171;
+        box-shadow: none;
+        border-radius: 1rem;
+    }
+    .task-leaderboard .user-info{
+        display: flex;
+        align-items: center;
+        width: 90%;
+        background-color: #fff;
+        padding: 1rem 1.5rem;
+        border-radius: 5rem;
+        font-weight: bold;
+    }
+    .user-avt {
+        position: relative;
+        width: 5rem;
+        height: 5rem;
+        background-color: #babbbe;
+        border-top-left-radius: 50%;
+        border-top-right-radius: 50%;
+        border-bottom-left-radius: 50%;
+        border-bottom-right-radius: 5px;
+        border: 4px solid #babbbe;
+    }
+    .user-rank-1 {
+        background-color: #febe26;
+        border-color: #febe26;
+    }
+    .user-rank-2 {
+        background-color: #94aec0;
+        border-color: #94aec0;
+    }
+    .user-rank-3 {
+        background-color: #ca8850;
+        border-color: #ca8850;
+    }
+    .user-avt img{
+        width: 100%;
+        border-radius: 50%;
+    }
+    .rank-number {
+        position: absolute;
+        right: 0;
+        bottom: -3px;
+        color: #fff;
+        font-size: 0.8rem;
+    }
+    .n-tasks {
+        color: #fb7171;
+        text-align: center;
+    }
+    .task-leaderboard .full-name {
+        width: 80%;
+        margin-left: 1.5rem;
+    }
+    .full-name a {
+        color: #000000;
+        text-decoration: none;
+    }
+</style>
+<div>
+    {% if enforce_privacy and (current_user.is_anonymous() or (current_user.is_authenticated and not current_user.admin)) %}
+    {{ privacy.render_lock_page() }}
+    {% else %}
         <br/>
-
-            {% if private %}
-            <div class="row">
-                <div class="alert alert-info">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>{{_('Important')}}:</strong> {{_('Data have been')}} <strong>{{_('anonymized')}}!</strong>
-                </div>
+        {% if private %}
+        <div class="row">
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{_('Important')}}:</strong> {{_('Data have been')}} <strong>{{_('anonymized')}}!</strong>
             </div>
-            {% endif %}
-
-            {% if pro_features['better_stats_enabled'] %}
-            <div id="card" class="row">
-                <div class="col-md-12">
-                    <h2>{{_('Average contribution time per task') }}:</h2>
-                    <p><span id="avgTime">{{ avg_contrib_time }}</span> {{ _('seconds') }}</p>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Hour Stats CARD -->
-            <div id="card" class="row">
-                <div class="col-md-12">
-                    <h2>{{_('Distribution of Answers per Hour')}}</h2>
-                    <div id="hourStats" style="margin:0;height:500px;">
-                    </div>
-                    <script>
-                    (function(){
-                    function answersPerHour(obj) {
-                        return (parseInt(obj.y) + " answers were submitted at " + parseInt(obj.x) + " hours");
-                    }
-
-                    function hours(obj) {
-                        return (parseInt(obj) + ":00");
-                    }
-                    var container = document.getElementById('hourStats');
-                    var graph = Flotr.draw(container, [{data: projectStats.hourStats[1]['values'], label:projectStats.hourStats[1]['label']},{ data:projectStats.hourStats[2]['values'],label:projectStats.hourStats[2]['label'] }], {
-                        bubbles : {show: true, baseRadius:5},
-                        xaxis   : {min: 0, max:24, tickFormatter: hours},
-                        yaxis   : {min: 0, max:_.max(projectStats.hourStats[0]), tickDecimals: 0 },
-                        mouse   : {track: true, trackFormatter: answersPerHour},
-                        HtmlText: false,
-                        legend  : {postion: 'nw'}
-                    });
-                    })();
-                    </script>
-                </div>
-            </div>
-            <!-- END Hour Stats CARD -->
-
-            <!-- Day Stats Total CARD -->
-            <div id="card" class="row">
-                <div  class="col-md-12">
-                    <h2>{{_('Completed Tasks in the last 15 days')}} </h2>
-                    <p>{{_('select an area to zoom, click to reset the chart')}}</p>
-                    <div id="dayStatsTotal" style="margin:0;height:500px;"></div>
-                    <script>
-                    (function(){
-                    function date(obj) {
-                        var d = new Date(parseInt( obj ));
-                        var year = d.getFullYear();
-                        var month = d.getMonth() + 1;
-                        var day = d.getDate();
-                        return(year + "-" + month + '-' + day)
-                    }
-                    function answersPerDay(obj) {
-                        return ("Tasks: " + parseInt(obj.y));
-                    }
-                    var options = {
-                        xaxis   : {mode:'time'},
-                        yaxis   : {min:0, max: projectStats.dayStats[3]['values'][0][1] + 1, tickDecimals: 0},
-                        mouse   : {track: true, trackFormatter: answersPerDay},
-                        HtmlText: false,
-                        legend  : {postion: 'nw'},
-                        selection: {
-                            mode: 'x',
-                            fps: 30
-                        }
-                    };
-
-                    var dayStatsTotalContainer = document.getElementById('dayStatsTotal');
-
-                    function drawGraph(opts) {
-                        // Clone the options, so the 'options' variable always keeps intact.
-                        var o = Flotr._.extend(Flotr._.clone(options), opts || {});
-                        
-                        // Return a new graph.
-                        return Flotr.draw(
-                        dayStatsTotalContainer, [{ data:projectStats.dayStats[3]['values'],label:projectStats.dayStats[3]['label']},  ], o);
-                    }
-                        
-                        // Actually draw the graph.
-                        graph = drawGraph();
-                        
-                        // Hook into the 'flotr:select' event.
-                        Flotr.EventAdapter.observe(dayStatsTotalContainer, 'flotr:select', function(area) {
-                        
-                            // Draw graph with new area
-                            graph = drawGraph({
-                                xaxis: {
-                                    mode: 'time',
-                                    min: area.x1,
-                                    max: area.x2
-                                },
-                                yaxis: {
-                                    min: area.y1,
-                                    max: area.y2
-                                }
-                            });
-                        });
-
-                        // When graph is clicked, draw the graph with default area.
-                        Flotr.EventAdapter.observe(dayStatsTotalContainer, 'flotr:click', function() {
-                            drawGraph();
-                        });
-                    })();
-                    </script>
-                </div>
-            </div>
-            <!-- END Day Stats CARD -->
-
-
-            <!-- Day Stats CARD -->
-            <div id="card" class="row">
-                <div  class="col-md-12">
-                    <h2>{{_('Answers per day')}}</h2>
-                    <p>{{_('select an area to zoom, click to reset the chart')}}</p>
-                    <div id="dayStats" style="margin:0;height:500px;"></div>
-                    <script>
-                    (function(){
-                    function date(obj) {
-                        var d = new Date(parseInt( obj ));
-                        var year = d.getFullYear();
-                        var month = d.getMonth() + 1;
-                        var day = d.getDate();
-                        return(year + "-" + month + '-' + day)
-                    }
-                    function answersPerDay(obj) {
-                        return (parseInt(obj.y) + " {{_('answers were submitted this day')}} " + date(obj.x));
-                    }
-                    var options = {
-                        xaxis   : {mode:'time'},
-                        yaxis   : {min: 0, tickDecimals: 0},
-                        mouse   : {track: true, trackFormatter: answersPerDay},
-                        HtmlText: false,
-                        legend  : {postion: 'nw'},
-                        selection: {
-                            mode: 'x',
-                            fps: 30
-                        }
-                    };
-
-                    var dayStatsContainer = document.getElementById('dayStats');
-
-                    function drawGraph(opts) {
-                        // Clone the options, so the 'options' variable always keeps intact.
-                        var o = Flotr._.extend(Flotr._.clone(options), opts || {});
-                        
-                        // Return a new graph.
-                        return Flotr.draw(
-                        dayStatsContainer, [{data: projectStats.dayStats[1]['values'], label:projectStats.dayStats[1]['label']},{ data:projectStats.dayStats[2]['values'],label:projectStats.dayStats[2]['label'] }, { data:projectStats.dayStats[0]['values'],label:projectStats.dayStats[0]['label']} ], o);
-                    }
-                        
-                        // Actually draw the graph.
-                        graph = drawGraph();
-                        
-                        // Hook into the 'flotr:select' event.
-                        Flotr.EventAdapter.observe(dayStatsContainer, 'flotr:select', function(area) {
-                        
-                            // Draw graph with new area
-                            graph = drawGraph({
-                                xaxis: {
-                                    mode: 'time',
-                                    min: area.x1,
-                                    max: area.x2
-                                },
-                                yaxis: {
-                                    min: area.y1,
-                                    max: area.y2
-                                }
-                            });
-                        });
-
-                        // When graph is clicked, draw the graph with default area.
-                        Flotr.EventAdapter.observe(dayStatsContainer, 'flotr:click', function() {
-                            drawGraph();
-                        });
-                    })();
-                    </script>
-                </div>
-            </div>
-            <!-- END Day Stats CARD -->
-
-
-            <!-- Number of answers CARD -->
-            <div id="card" class="row">
-                <div id="dist-answers" class="col-md-12">
-                    <h2>{{_('Distribution of Answers')}}</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <table class="table table-hover table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>{{_('Type')}}</th>
-                                        <th>{{_('Users')}}</th>
-                                        <th>{{_('Percentage')}}</th>
-                                    </tr>
-                                </thead>
-                            {% for k in userStats.keys() if k != 'geo' %}
-                                <tr>
-                                    <th>{{k | capitalize}}</th>
-                                    <th>{{userStats[k].taskruns}}</th>
-                                    <th>{{userStats[k].pct_taskruns}} %</th>
-                                </tr>
-                            {% endfor %}
-                            </table>
-
-                        </div>
-                        <div id="userAnsStats" class="col-md-4" style="height: 250px; width:250px;">
-                        </div>
-                        <script>
-                        (function(){
-                        var container = document.getElementById('userAnsStats');
-                        var graph = Flotr.draw(container, [
-                            {data:[projectStats.userStats['values'][0]['value']], label:projectStats.userStats['values'][0]['label']},
-                            {data:[projectStats.userStats['values'][1]['value']],  label:projectStats.userStats['values'][1]['label']}], 
-                            {
-                            pie     : {show: true, explode: 2},
-                            grid    : {verticalLines: false, horizontalLines: false, outlineWidth: 0},
-                            HtmlText: false,
-                            xaxis   : {showLabels: false},
-                            yaxis   : {showLabels: false},
-                            legend  : {postion: 'nw'}
-                        });
-                        })();
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <!-- END Number of Answers Stats CARD -->
-
-            <!-- Anon User Stats CARD -->
-            <div id="card" class="row">
-                <div id="dist-anon" class="col-md-12">
-                    <h2>{{_('Details about Anonymous Users')}}</h2>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><i class="icon-group"></i> <strong>{{userStats.anonymous.users}} </strong> {{_('anonymous users have')}} <strong>{{_('participated')}}</strong></p>
-                            {% if userStats.anonymous.top5 and userStats.geo %}
-                            <h3>Top 5 users</h3>
-                            <table class="table table-hover table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>{{_('Country')}}</th>
-                                        <th>{{_('City')}}</th>
-                                        <th>{{_('Tasks')}}</th>
-                                    </tr>
-                                </thead>
-                            {% for u in userStats.anonymous.top5 %}
-                                <tr>
-                                    <th>{{loop.index}}</th>
-                                    <th>{{u.loc.country_name}}</th>
-                                    <th>{{u.loc.city}}</th>
-                                    <th>{{u.tasks}}</th>
-                                </tr>
-                            {% endfor %}
-                            </table>
-                            {% endif %}
-                        </div>
-                        <div id="userAnonStats" class="col-md-12"  style='height:400px'>
-                        </div>
-                        <script>
-                        (function(){
-                        var container = document.getElementById('userAnonStats');
-                        var graph = Flotr.draw(container, [
-                            {data:[[0, projectStats.userAnonStats['top5'][0]['tasks'] ]],  label:'{{_('User')}} 1'},
-                            {data:[[0, projectStats.userAnonStats['top5'][1]['tasks'] ]],  label:'{{_('User')}} 2'}, 
-                            {data:[[0, projectStats.userAnonStats['top5'][2]['tasks'] ]],  label:'{{_('User')}} 3'}, 
-                            {data:[[0, projectStats.userAnonStats['top5'][3]['tasks'] ]],  label:'{{_('User')}} 4'}, 
-                            {data:[[0, projectStats.userAnonStats['top5'][4]['tasks'] ]],  label:'{{_('User')}} 5'}], 
-                            {
-                            pie     : {show: true, explode: 5},
-                            grid    : {verticalLines: false, horizontalLines: false, outlineWidth: 0},
-                            HtmlText: false,
-                            xaxis   : {showLabels: false},
-                            yaxis   : {showLabels: false},
-                            legend  : {postion: 'se'}
-                        });
-                        })();
-                        </script>
-                    </div>
-                    {% if userStats.geo %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="map" style="height:250px;"></div>
-                            <p class="note">{{_('This page includes GeoLite data created by MaxMind, available from')}}
-                            <a href="http://www.maxmind.com">http://www.maxmind.com</a></p>
-                        </div>
-                        <script>
-                            (function(){
-                            var map = L.map('map');
-                            map.fitWorld();
-                            map.setZoom(1);
-                            var url = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                            L.tileLayer(url, 
-                                {
-                                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-                                maxZoom: 18,
-                                minZoom:1
-                                }).addTo(map);
-
-                            var i = 0;
-                            var locations = projectStats.userAnonStats.locs;
-                            var l = locations.length;
-                            var markers = new L.MarkerClusterGroup();
-                            for (i;i<l;i++) {
-                                if (locations[i].loc != null) {
-                                    var lat = parseFloat(locations[i].loc.latitude);
-                                    var lng = parseFloat(locations[i].loc.longitude);
-                                    markers.addLayer(L.marker([lat,lng]));
-                                }
-                            }
-                            map.addLayer(markers);
-                            })();
-                        </script>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            <!-- END Anon User Stats CARD -->
-
-            <!-- Auth User Stats CARD -->
-            <div id="card" class="row">
-                <div id="dist-auth" class="col-md-12">
-                    <h2>{{_('Details about Authenticated Users')}}</h2>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><i class="icon-group"></i> <strong>{{userStats.authenticated.users}}</strong> {{_('authenticated users have')}} <strong>{{_('participated')}}</strong>.</p>
-                            {% if userStats.authenticated.top5 %}
-                            <h3>{{_('Top 5 users')}}</h3>
-                            <table class="table table-hover table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>{{_('User')}}</th>
-                                        <th>{{_('Tasks')}}</th>
-                                    </tr>
-                                </thead>
-                            {% for u in userStats.authenticated.top5 %}
-                                <tr>
-                                    <th>{{loop.index}}</th>
-                                    <th><a href="{{url_for('account.profile', name=u.name)}}">{{u.fullname}}</a></th>
-                                    <th>{{u.tasks}}</th>
-                                </tr>
-                            {% endfor %}
-                            </table>
-                            {% endif %}
-                        </div>
-                        <div id="userAuthStats" class="col-md-12" style='height:400px'>
-                        </div>
-                        <script>
-                        (function(){
-                        var container = document.getElementById('userAuthStats');
-                        var graph = Flotr.draw(container, [
-                            {data:[[0, projectStats.userAuthStats['top5'][0]['tasks'] ]],  label:projectStats.userAuthStats['top5'][0]['fullname']},
-                            {data:[[0, projectStats.userAuthStats['top5'][1]['tasks'] ]],  label:projectStats.userAuthStats['top5'][1]['fullname']}, 
-                            {data:[[0, projectStats.userAuthStats['top5'][2]['tasks'] ]],  label:projectStats.userAuthStats['top5'][2]['fullname']}, 
-                            {data:[[0, projectStats.userAuthStats['top5'][3]['tasks'] ]],  label:projectStats.userAuthStats['top5'][3]['fullname']}, 
-                            {data:[[0, projectStats.userAuthStats['top5'][4]['tasks'] ]],  label:projectStats.userAuthStats['top5'][4]['fullname']}], 
-                            {
-                            pie     : {show: true, explode: 5},
-                            grid    : {verticalLines: false, horizontalLines: false, outlineWidth: 0},
-                            HtmlText: false,
-                            xaxis   : {showLabels: false},
-                            yaxis   : {showLabels: false},
-                            legend  : {postion: 'nw'}
-                        });
-                        })();
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <!-- END Auth User Stats CARD -->
-            {%endif%}
         </div>
+        {% endif %}
+        {% if pro_features['better_stats_enabled'] %}
+        <div id="card" class="row">
+            <div class="col-md-12">
+                <h2>{{_('Average contribution time per task') }}:</h2>
+                <p><span id="avgTime">{{ avg_contrib_time }}</span> {{ _('seconds') }}</p>
+            </div>
+        </div>
+        {% endif %}
+        <!-- Tasks Stats Chart -->
+        <div class="row">
+            <div class="col-lg-12">
+                <canvas id="chart-1"></canvas>
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-3">
+                    <div class="bg-light">
+                        <div class="title">Percent completed</div>
+                        <h2 class="text-red">{{task_stats.n_completed_tasks / task_stats.n_tasks * 100}} %</h2>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="bg-light">
+                        <div class="title">Total tasks</div>
+                        <h2 class="text-blue">{{task_stats.n_tasks}}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="bg-light">
+                        <div class="title">Tasks completed</div>
+                        <h2 class="text-blue">{{task_stats.n_completed_tasks}}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="bg-light">
+                        <div class="title">Volunteers</div>
+                        <h2 class="text-blue">{{task_stats.n_volunteers}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            Chart.defaults.global.responsive = false;
+            // define the chart data
+            var chartData = {
+                labels: [{% for t in task_stats.tasks %}
+                    '{{_("Task #")}} {{t.id}}',
+                {% endfor %}],
+                datasets: [{
+                    data: [{% for t in task_stats.tasks %}
+                        {{ t.pct_status * 100 }},
+                    {% endfor %}],
+                    fill: false,
+                    backgroundColor: "rgb(255, 159, 64)",
+                }]
+            }
+            // get chart canvas
+            var ctx = document.getElementById("chart-1").getContext("2d");
+            // create the chart using the chart canvas
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                                stepValue: 5,
+                                max: 100,
+                            },
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    responsive: true,
+                }
+            });
+        </script>
+        <!-- End Chart-1 -->
+        <!-- Distribution of Answers Chart -->
+        <h3>Distribution of Answers</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="chart-2"></canvas>
+            </div>
+            <div class="col-lg-6">
+                {% if user_stats.n_volunteers != 0%}
+                <table class="answers-tbl">
+                    <thead>
+                        <tr>
+                            <td>Type</td>
+                            <td>Users</td>
+                            <td>Percentage</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authenticated</td>
+                            {% set authenticated_pct = user_stats.n_registered_volunteers/user_stats.n_volunteers*100 %}
+                            <td>{{user_stats.n_registered_volunteers}}</td>
+                            <td>{{authenticated_pct|round|int}} %</td>
+                        </tr>
+                        <tr>
+                            <td>Anonymous</td>
+                            {% set anonymous_pct = user_stats.n_anonymous_volunteers/user_stats.n_volunteers*100 %}
+                            <td>{{user_stats.n_anonymous_volunteers}}</td>
+                            <td>{{anonymous_pct|round|int}} %</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%endif%}
+            </div>
+        </div>
+        <script>
+            Chart.defaults.global.responsive = false;
+            // define the chart data
+            var chartData = {
+                labels: ["Authenticated", "Anonymous"],
+                datasets: [{
+                    data: [{{ authenticated_pct }}, {{ anonymous_pct }}],
+                    backgroundColor: [
+                        "rgb(255, 99, 132)",
+                        "rgb(54, 162, 235)",
+                    ]
+                }]
+            }
+            // get chart canvas
+            var ctx = document.getElementById("chart-2").getContext("2d");
+            // create the chart using the chart canvas
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                }
+            });
+        </script>
+        <!-- End chart-2 -->
+        <!-- Answers per day -->
+        <h3>Answers per day in last 15 days</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <canvas id="chart-3"></canvas>
+            </div>
+        </div>
+        <script>
+            Chart.defaults.global.responsive = false;
+            // define the chart data
+            var chartData = {
+                labels: [{% for tr in task_per_day_stats.n_task_runs_registered %}
+                    '{{tr.day}}',
+                {% endfor %}],
+                datasets: [
+                    {
+                        label: 'Authenticated',
+                        data: [{% for tr in task_per_day_stats.n_task_runs_registered %}
+                            '{{ tr.count }}',
+                        {% endfor %}],
+                        borderColor: "rgb(54, 162, 235)",
+                        fill: false,
+                        lineTension: 0,
+                    },
+                    {
+                        label: 'Anonymous',
+                        data: [{% for tr in task_per_day_stats.n_task_runs_anonymous %}
+                            '{{ tr.count }}',
+                        {% endfor %}],
+                        borderColor: "rgb(255, 99, 132)",
+                        fill: false,
+                        lineTension: 0,
+                    }
+                ]
+            }
+            // get chart canvas
+            var ctx = document.getElementById("chart-3").getContext("2d");
+            // create the chart using the chart canvas
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                reverse: false,
+                                stepSize: 1
+                            }
+                        }]
+                    },
+                    responsive: true,
+                }
+            });
+        </script>
+        <!-- End chart-3 -->
+        <!-- Tasks Average Stats Chart -->
+        <h3>Average contribution time per task</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <canvas id="chart-4"></canvas>
+            </div>
+            <div class="col-lg-12">
+                <div class="bg-light">
+                    <div class="title">Total average contribution time per task</div>
+                    <h2 class="text-red">{{task_stats.average_contribution_time}}s</h2>
+                </div>
+            </div>
+        </div>
+        <script>
+            Chart.defaults.global.responsive = false;
+            // define the chart data
+            var chartData = {
+                labels: [{% for t in task_avg_stats %}
+                    '{{_("Task #")}} {{t.id}}',
+                {% endfor %}],
+                datasets: [{
+                    data: [{% for t in task_avg_stats %}
+                            {{ t.average_time }},
+                    {% endfor %}],
+                    fill: false,
+                    backgroundColor: "rgb(14, 227, 85)",
+                }]
+            }
+            // get chart canvas
+            var ctx = document.getElementById("chart-4").getContext("2d");
+            // create the chart using the chart canvas
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartData,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                steps: 10,
+                            },
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    responsive: true,
+                }
+            });
+        </script>
+        <!-- End Chart-4 -->
+        <!-- Top 5 task activity -->
+        <h3>Top 5 tasks activity</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="task-leaderboard">
+                {% for i, t in enumerate(top_tasks_activity) %}
+                {% set task_pct = t.pct_status %}
+                    <li>
+                        <div class="rank rank-{{i+1}}"><p>{{i + 1}}</p></div>
+                        <div class="task-info">
+                            <div class="task-name">
+                                {{_('Task')}} <span class="label label-info {{ 'big-name' if i < 3 }}">#{{ t.id }}</span>
+                            </div>
+                            <span class="task-progress-label">{{task_pct}}%</span>
+                            <div class="task-progress">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{task_pct}}" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: {{task_pct}}%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- End top 5 -->
+        <!-- Top 5 volunteers activity -->
+        <h3>Top 5 volunteers activity</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="task-leaderboard">
+                    {% for i, v in enumerate(top_volunteers_activity) %}
+                    <li>
+                        <div class="rank rank-{{i+1}}">
+                            <p>{{i + 1}}</p>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-avt user-rank-{{i+1}}">
+                                {% if v.info %}
+                                <img src="{{ url_for('uploads.uploaded_file', filename=(v.info.container + '/' + v.info.avatar))}}"
+                                    onError="this.onerror=null;this.src='{{url_for('static', filename='img/placeholder.user.png')}}';">
+                                {% else %}
+                                <img src="{{url_for('static', filename='img/placeholder.user.png')}}" alt="">
+                                {%endif%}
+                                <span class="rank-number">{{i + 1}}</span>
+                            </div>
+                            <div class="full-name">
+                                <a href="{{url_for('account.profile', name=v.name) if v.name else '#'}}">
+                                    {{v.fullname}}
+                                </a>
+                            </div>
+                            <span class="n-tasks">{{v.n_task_runs}} {{"tasks" if v.n_task_runs > 1 else "task"}}</span>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- End top 5 -->
+    {%endif%}
+    <!-- bar chart canvas element -->
 </div>
-<script type="text/javascript">
-(function() {
-    var time = document.getElementById('avgTime');
-    try {
-        var localTime = time.innerHTML;
-        var locale = navigator.languages ? navigator.languages[0] : navigator.language;
-        var localTime = parseFloat(time.innerHTML).toLocaleString(locale);
-        time.innerHTML = localTime;
-    }
-    catch (e) {
-        console.log("Unable to convert to local string.");
-    }
-})();
-</script>
-{{ helper.broken_image() }}
 {% endblock %}
