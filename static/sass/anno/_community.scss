@@ -1,46 +1,33 @@
 .new-community {
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-bottom: 8rem;
   color: #2e2e2e;
   h1 {
-    margin-top: 8rem;
     font-size: 3rem;
     text-transform: uppercase;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
-  p {
-    color: #2e2e2e;
-    margin-top: 2rem;
+  span {
+    line-height: 33px;
     i {
       margin-right: 1rem;
     }
   }
-  table {
-    width: 100%;
-    margin: 3rem 0;
-    th {
-      background-color: #434343;
-      color: #ffffff;
-      padding: 1rem;
-      text-transform: uppercase;
-      font-weight: 400;
+  .image-wrapper {
+    padding: 3rem 3rem 1rem 3rem;
+  }
+  .description {
+    p {
+      color: #2e2e2e;
+      font-size: 14px;
     }
-    td {
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 0.25rem 0.5rem;
-      color: #434343;
-      font-weight: 200;
-    }
-    .image-wrapper {
-      display: flex;
-      img {
-        width: 5rem;
-        height: 5rem;
-      }
-      a {
-        line-height: 2.5;
-      }
-    }
+  }
+  .user-name {
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
   }
 }
