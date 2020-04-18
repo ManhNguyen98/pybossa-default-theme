@@ -4,7 +4,7 @@ content %}
 <section class="stats leaderboard">
   <div class="container">
     <div class="row">
-      <div class="col-md-offset-2 col-md-8 new-community">
+      <div class="col-md-offset-1 col-md-10 new-community">
         {% if enforce_privacy and (current_user.is_anonymous() or
         (current_user.is_authenticated and not current_user.admin)) %}
         {{ privacy.render_lock_page() }}
@@ -14,49 +14,56 @@ content %}
           <strong>{{ _('Community Leaderboard') }}</strong>
         </h1>
         {% if top_users %}
-        <table class="table table-striped table-hover table-condensed">
-          <thead>
-            <tr>
-              <th>{{ _('Rank') }}</th>
-              <th>{{ _('Name') }}</th>
-              <th>{{ _('Score') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for user in top_users %} {% if user.fullname ==
-            current_user.fullname %}
-            <tr class="info">
-              <td>
-                <strong>{{ user.rank }}</strong>
-              </td>
-              <td>
-                <strong
-                  ><a
-                    style="color:white"
-                    href="{{url_for('account.profile', name=user.name)}}"
-                    >{{ user.fullname }}</a
-                  ></strong
-                >
-              </td>
-              <td>
-                <strong>{{ user.score }}</strong>
-              </td>
-            </tr>
-            {% else %}
-            <tr>
-              <td>{{ user.rank }}</td>
-              <td>
-                <strong
-                  ><a href="{{url_for('account.profile', name=user.name)}}">{{
-                    user.fullname
-                  }}</a></strong
-                >
-              </td>
-              <td>{{ user.score }}</td>
-            </tr>
-            {%endif%} {% endfor %}
-          </tbody>
-        </table>
+        {% set current_rank = top_users|last %}
+        <div class="leader-board">
+          <div class="current-rank">
+            <div class="rank-index">
+              <p>Rank</p>
+              <p class="big-text">{{current_rank.rank}}</p>
+            </div>
+            <div class="rank-avt">
+              {% if current_rank.info %}
+              <img src="{{ url_for('uploads.uploaded_file', filename=(current_rank.info.container + '/' + current_rank.info.avatar))}}"
+                onError="this.onerror=null;this.src='{{url_for('static', filename='img/user-default.jpg')}}';">
+              {% else %}
+              <img src="{{url_for('static', filename='img/user-default.jpg')}}" alt="">
+              {%endif%}
+              <p>{{current_rank.fullname}}</p>
+            </div>
+            <div class="rank-score">
+              <p>Score</p>
+              <p class="big-text">{{current_rank.score}}</p>
+            </div>
+          </div>
+          {% endif %}
+          {% if top_users_1%}
+          <ul class="task-leaderboard">
+            {% for i, v in enumerate(top_users_1) %}
+            <li>
+              <div class="rank rank-{{i+1}}">
+                <p>{{v.rank}}</p>
+              </div>
+              <div class="user-info">
+                <div class="user-avt user-rank-{{i+1}}">
+                  {% if v.info %}
+                  <img src="{{ url_for('uploads.uploaded_file', filename=(v.info.container + '/' + v.info.avatar))}}"
+                    onError="this.onerror=null;this.src='{{url_for('static', filename='img/user-default.jpg')}}';">
+                  {% else %}
+                  <img src="{{url_for('static', filename='img/user-default.jpg')}}" alt="">
+                  {%endif%}
+                  <span class="rank-number">{{v.rank}}</span>
+                </div>
+                <div class="full-name">
+                  <a href="{{url_for('account.profile', name=v.name) if v.name else '#'}}">
+                    {{v.fullname}}
+                  </a>
+                </div>
+                <span class="n-tasks">{{ v.score }}</span>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
         {% else %}
         <p>No infomation!</p>
         {% endif %} {% endif %}

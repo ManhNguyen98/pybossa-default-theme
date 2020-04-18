@@ -40,34 +40,9 @@
                     {{account.fullname}}
                   </a>
                   <p><strong>{{ _('Joined: ') }}</strong>{{ account.registered_ago }}</p>
+                  <p><strong>{{ _('Contributions: ') }}</strong>{{ account.n_answers }}</p>
                 </div>
               </div>
-            {% endfor %}
-            {% for account in accounts %}
-            <div class="col-md-3">
-              <figure class="image-wrapper">
-                {{helper.render_user_thumbnail(account, upload_method, class='img-responsive img-circle')}}
-              </figure>
-              <div class="description">
-                <a class="user-name" href="{{url_for('account.profile', name=account.name)}}">
-                  {{account.fullname}}
-                </a>
-                <p><strong>{{ _('Joined: ') }}</strong>{{ account.registered_ago }}</p>
-              </div>
-            </div>
-            {% endfor %}
-            {% for account in accounts %}
-            <div class="col-md-3">
-              <figure class="image-wrapper">
-                {{helper.render_user_thumbnail(account, upload_method, class='img-responsive img-circle')}}
-              </figure>
-              <div class="description">
-                <a class="user-name" href="{{url_for('account.profile', name=account.name)}}">
-                  {{account.fullname}}
-                </a>
-                <p><strong>{{ _('Joined: ') }}</strong>{{ account.registered_ago }}</p>
-              </div>
-            </div>
             {% endfor %}
           {% endif %}
         </div>
