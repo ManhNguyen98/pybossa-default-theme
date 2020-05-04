@@ -14,31 +14,32 @@ active_project = project.short_name %} {% set jstop = True %} {% block content
   });
 </script>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <h3>
-        <a
-          href="{{url_for('project.details', short_name=project.short_name)}}"
-          >{{ project.name }}</a
-        >: {{ _('Contribute') }}
-      </h3>
-    </div>
-  </div>
+<div>
   {% if invite_new_volunteers %}
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        {{
-          _(
-            "Sorry, you've contributed to all the tasks for this project, but this project still needs more volunteers, so please spread the word!"
-          )
-        }}
-      </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+          {{
+            _(
+              "Sorry, you've contributed to all the tasks for this project, but this project still needs more volunteers, so please spread the word!"
+            )
+          }}
+        </p>
+      </div>
     </div>
   </div>
   {% endif %}
-  {{ project.info.task_presenter | safe }}
+  <div class="u-responsive-presenter">
+    {{ project.info.task_presenter | safe }}
+  </div>
+  <div class="u-responsive-presenter-notice">
+    {{
+      _(
+        "Sorry, we do not support this device, so please use larger device to continue!"
+      )
+    }}
+  </div>
 
   <div id="PYBOSSA_USER_LOCALE" hidden>
     {% if current_user.is_anonymous() %} en {% else %}

@@ -63,7 +63,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "d92acbac5817c9d1a235";
+/******/ 	var hotCurrentHash = "040833866633652933ea";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -833,53 +833,6 @@ var str = pathname.split('/');
 var index = str.indexOf('project');
 var projectname = str[index + 1];
 var PybossaLoader = {
-  // init: function() {
-  //   this.taskLoaded();
-  //   this.presentTask();
-  //   pybossa.run('pdf');
-  // },
-  // renderPage: function(task) {
-  //   // Using promise to fetch the page
-  //   task.pdfDoc.getPage(task.pageNum).then(function(page) {
-  //     var viewport = page.getViewport(task.scale);
-  //     task.canvas.height = viewport.height;
-  //     task.canvas.width = viewport.width;
-  //     // Render PDF page into canvas context
-  //     var renderContext = {
-  //       canvasContext: task.ctx,
-  //       viewport: viewport
-  //     };
-  //     page.render(renderContext);
-  //   });
-  // },
-  // zoom: function(task, v) {
-  //   task.pdfDoc.getPage(task.pageNum).then(function(page) {
-  //     if (v === 1) {
-  //       task.scale = task.scale + 0.1;
-  //       if (task.scale >= 2) {
-  //         task.scale = 2;
-  //       }
-  //     }
-  //     if (v === -1) {
-  //       task.scale = task.scale - 0.1;
-  //       if (task.scale <= 0) {
-  //         task.scale = 0.1;
-  //       }
-  //     }
-  //     if (v === 0) {
-  //       task.scale = 0.8;
-  //     }
-  //     var viewport = page.getViewport(task.scale + 0.1);
-  //     task.canvas.height = viewport.height;
-  //     task.canvas.width = viewport.width;
-  //     // Render PDF page into canvas context
-  //     var renderContext = {
-  //       canvasContext: task.ctx,
-  //       viewport: viewport
-  //     };
-  //     page.render(renderContext);
-  //   });
-  // },
   enableDisabledNavButtons: function enableDisabledNavButtons(task) {
     if (task.pageNum === 1) {
       $('#next').removeClass('disabled');
@@ -892,43 +845,13 @@ var PybossaLoader = {
       $('#prev').removeClass('disabled');
     }
   },
-  // goPreviousPage: function(task) {
-  //   if (task.pageNum <= 1) return;
-  //   task.pageNum--;
-  //   PybossaLoader.renderPage(task);
-  //   $('#currentPage').text(task.pageNum);
-  //   PybossaLoader.enableDisabledNavButtons(task);
-  // },
-  // goNextPage: function(task) {
-  //   if (task.pageNum >= task.pdfDoc.numPages) return;
-  //   task.pageNum++;
-  //   PybossaLoader.renderPage(task);
-  //   $('#currentPage').text(task.pageNum);
-  //   PybossaLoader.enableDisabledNavButtons(task);
-  // },
   loadUserProgress: function loadUserProgress() {
-    _pybossa__WEBPACK_IMPORTED_MODULE_4__["pybossa"].userProgress('pdf').done(function (data) {
+    _pybossa__WEBPACK_IMPORTED_MODULE_4__["pybossa"].userProgress(projectname).done(function (data) {
       var pct = Math.round(data.done * 100 / data.total);
       $('#progress').css('width', pct.toString() + '%');
-      $('#progress').attr('title', pct.toString() + '% completed!');
-      $('#progress').tooltip({
-        placement: 'left'
-      });
-      $('#total').text(data.total);
-      $('#done').text(data.done);
+      $('#progress-pct').text(pct.toString() + '% completed!');
     });
   },
-  // showPaginationOptions: function(task) {
-  //   if (task.pagination) {
-  //     $('#currentPage').text(task.pageNum);
-  //     $('#totalPages').text(task.pdfDoc.numPages);
-  //     $('.btn-navigate').show();
-  //     $('#pages').show();
-  //   } else {
-  //     $('.btn-navigate').hide();
-  //     $('#pages').hide();
-  //   }
-  // },
   taskLoaded: function taskLoaded() {
     _pybossa__WEBPACK_IMPORTED_MODULE_4__["pybossa"].taskLoaded(function (task, deferred) {
       if (!$.isEmptyObject(task)) {
@@ -973,16 +896,13 @@ var PybossaLoader = {
   presentTask: function presentTask() {
     _pybossa__WEBPACK_IMPORTED_MODULE_4__["pybossa"].presentTask(function (task, deferred) {
       if (!$.isEmptyObject(task)) {
-        // PybossaLoader.loadUserProgress();
+        PybossaLoader.loadUserProgress();
         _src_config__WEBPACK_IMPORTED_MODULE_2__["default"].documentId = task.info.pdf_url;
         $('textarea #text').val('');
-        $('#viewport_' + task.id).show(); // PybossaLoader.showPaginationOptions(task);
-        // renderPage(task);
-
+        $('#viewport_' + task.id).show();
         $('#question strong').text(task.info.question);
         $('#task-id').text(task.id);
-        $('#loading').hide(); // PybossaLoader.enableDisabledNavButtons(task);
-
+        $('#loading').hide();
         render();
         $('.btn-submit').off('click').on('click', function () {
           var answer = [];
@@ -1096,7 +1016,6 @@ function render() {
     $('#pdf-total-pages').text(NUM_PAGES);
     $('#pdf-loader').hide();
     $('.toolbar').show();
-    $('.toolbar').addClass('animated fadeInLeft fast');
   });
 } // Text stuff
 
