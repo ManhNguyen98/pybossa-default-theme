@@ -369,6 +369,13 @@ hr {
 .small {
   font-size: 8px;
 }
+.annotator-item-controls {
+  cursor: pointer;
+}
+.annotator-item-controls:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 
 #tblCustomers {
   display: table;
@@ -498,4 +505,23 @@ hr {
   #progress-pct {
     color: #fb7171;
   }
+}
+
+.categories {
+  a {
+    color: #434343;
+  }
+  li.active {
+    a {
+      background-color: #434343;
+      border-radius: 0;
+      &:hover {
+        background-color: #343434;
+      }
+    }
+  }
+}
+
+.nav-pills {
+  border: 2px solid;
 }

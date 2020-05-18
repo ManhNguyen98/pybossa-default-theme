@@ -358,6 +358,13 @@ hr {
   font-size: 8px;
 }
 
+.annotator-item-controls {
+  cursor: pointer;
+}
+.annotator-item-controls:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 #tblCustomers {
   display: table;
   border-collapse: collapse;
