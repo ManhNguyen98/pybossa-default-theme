@@ -19,7 +19,7 @@
                     {{ project_helper.render_grid_projects(projects_draft,  _('Draft Projects'), upload_method, title_class="col-md-12", container=False)}}
                     {% endif %}
                  {% else %}
-                 <h1>{{_('You have not created a project')}}</h1>
+                 <h2>{{_('You have not created a project')}}</h2>
                  <a href="{{url_for('project.new')}}" class="btn btn-primary">{{ _('Let\'s do it!') }}</a>
                  {% endif %}
 

@@ -25,7 +25,7 @@
       }
     }
     .active {
-      a {
+      a:first-child {
         background-color: #434343;
         border-bottom: 3px solid #007bff;
         &:hover {

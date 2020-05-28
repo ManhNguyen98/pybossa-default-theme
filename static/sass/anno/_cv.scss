@@ -508,9 +508,6 @@ hr {
 }
 
 .categories {
-  a {
-    color: #434343;
-  }
   li.active {
     a {
       background-color: #434343;
@@ -524,4 +521,7 @@ hr {
 
 .nav-pills {
   border: 2px solid;
+  a {
+    color: #434343;
+  }
 }

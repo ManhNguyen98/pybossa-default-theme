@@ -6,7 +6,7 @@
 
 {% block rightbody %}
 <div id="categories" class="col-md-9">
-    <h1><strong>{{ _('Admin Site') }}:</strong> {{ _('Manage Categories') }}</h1>
+    <h2><strong>{{ _('Admin Site') }}:</strong> {{ _('Manage Categories') }}</h2>
     <div class="row">
         <div id="add" class="col-md-12">
             <form method="POST" action="{{url_for('admin.categories')}}">
@@ -22,20 +22,21 @@
         </div>
     </div>
     {% if categories %}
-    <h1>{{_('List of Available Categories')}}</h1>
-    <hr>
+    <br/>
+    <h2>{{_('List of Available Categories')}}</h2>
+    <hr style="border-color: #d6c8c8;">
     {% for c in categories %}
     <div class="row">
-        <div class="col-md-5">
-            <h2>{{c.name}} <small>({{n_projects_per_category[c.short_name]}} projects)</small></h2>
-        </div>
         <div class="col-md-6">
-            <div class="btn-group btn-group-sm btn-admin-categories">
-                <a href="{{url_for('admin.update_category', id=c.id)}}" class="btn btn-primary"><i class="icon-edit"></i> {{_('Edit Category Name')}}</a>
+            <p>{{c.name}} <small>({{n_projects_per_category[c.short_name]}} projects)</small></p>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <div class="btn-group btn-group-sm">
+                <a href="{{url_for('admin.update_category', id=c.id)}}" class="btn btn-primary" style="margin-right: 0.5rem;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 {% if n_projects_per_category[c.short_name] == 0 and (categories | count > 1) %}
-                <a href="{{url_for('admin.del_category', id=c.id)}}" class="btn btn-danger"><i class="icon-trash"></i> {{_('Delete Category')}}</a>
+                <a href="{{url_for('admin.del_category', id=c.id)}}" class="btn btn-primary" style="background-color: #E74C3C; border-color: #E74C3C;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 {% else %}
-                <a href="#" class="btn btn-danger disabled"><i class="icon-trash"></i> {{_('Delete Category')}}</a>
+                <a href="#" class="btn btn-primary" style="background-color: #E74C3C; border-color: #E74C3C;"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 {% endif %}
             </div>
         </div>

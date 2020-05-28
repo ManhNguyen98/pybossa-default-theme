@@ -3,7 +3,7 @@
 {% from "admin/_helpers.html" import render_admin_user, render_project_card_user %}
 
 {% block rightbody %}
-<h1><strong>{{ _('Admin Site') }}:</strong> {{ _('Manage Admin Users') }}</h1>
+<h2><strong>{{ _('Admin Site') }}:</strong> {{ _('Manage Admin Users') }}</h2>
 {% from "_formhelpers.html" import render_field %}
 
 <div class="row">
@@ -21,7 +21,7 @@
 </div>
 
 {% if found %}
-<h2>{{ _('Found Users') }}</h2>
+<h3>{{ _('Found Users') }}</h3>
 <div class="row">
 {% for user in found %}
     <div class="col-sm-4 col-md-4">
@@ -32,7 +32,7 @@
 {% endif %}
 
 {% if users %}
-<h1>{{ _('Current Users with Admin privileges') }}</h1>
+<h3>{{ _('Current Users with Admin privileges') }}</h3>
 <div class="row">
     {% for user in users %}
     <div class="col-sm-4 col-md-4">
