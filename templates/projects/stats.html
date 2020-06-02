@@ -269,65 +269,6 @@
             });
         </script>
         <!-- End Chart-1 -->
-        <!-- Distribution of Answers Chart -->
-        <h3>Distribution of Answers</h3>
-        <div class="row">
-            <div class="col-lg-6">
-                <canvas id="chart-2"></canvas>
-            </div>
-            <div class="col-lg-6">
-                {% if user_stats.n_volunteers != 0%}
-                <table class="answers-tbl">
-                    <thead>
-                        <tr>
-                            <td>Type</td>
-                            <td>Users</td>
-                            <td>Percentage</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Authenticated</td>
-                            {% set authenticated_pct = user_stats.n_registered_volunteers/user_stats.n_volunteers*100 %}
-                            <td>{{user_stats.n_registered_volunteers}}</td>
-                            <td>{{authenticated_pct|round|int}} %</td>
-                        </tr>
-                        <tr>
-                            <td>Anonymous</td>
-                            {% set anonymous_pct = user_stats.n_anonymous_volunteers/user_stats.n_volunteers*100 %}
-                            <td>{{user_stats.n_anonymous_volunteers}}</td>
-                            <td>{{anonymous_pct|round|int}} %</td>
-                        </tr>
-                    </tbody>
-                </table>
-                {%endif%}
-            </div>
-        </div>
-        <script>
-            Chart.defaults.global.responsive = false;
-            // define the chart data
-            var chartData = {
-                labels: ["Authenticated", "Anonymous"],
-                datasets: [{
-                    data: [{{ authenticated_pct }}, {{ anonymous_pct }}],
-                    backgroundColor: [
-                        "rgb(255, 99, 132)",
-                        "rgb(54, 162, 235)",
-                    ]
-                }]
-            }
-            // get chart canvas
-            var ctx = document.getElementById("chart-2").getContext("2d");
-            // create the chart using the chart canvas
-            var myChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: chartData,
-                options: {
-                    responsive: true,
-                }
-            });
-        </script>
-        <!-- End chart-2 -->
         <!-- Answers per day -->
         <h3>Answers per day in last 15 days</h3>
         <div class="row">
@@ -434,34 +375,6 @@
             });
         </script>
         <!-- End Chart-4 -->
-        <!-- Top 5 task activity -->
-        <h3>Top 5 tasks activity</h3>
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="task-leaderboard">
-                {% for i, t in enumerate(top_tasks_activity) %}
-                {% set task_pct = t.pct_status %}
-                    <li>
-                        <div class="rank rank-{{i+1}}"><p>{{i + 1}}</p></div>
-                        <div class="task-info">
-                            <div class="task-name">
-                                {{_('Task')}} <span class="label label-info {{ 'big-name' if i < 3 }}">#{{ t.id }}</span>
-                            </div>
-                            <span class="task-progress-label">{{task_pct}}%</span>
-                            <div class="task-progress">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{task_pct}}" aria-valuemin="0" aria-valuemax="100"
-                                        style="width: {{task_pct}}%;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <!-- End top 5 -->
         <!-- Top 5 volunteers activity -->
         <h3>Top 5 volunteers activity</h3>
         <div class="row">
@@ -491,6 +404,93 @@
                         </div>
                     </li>
                     {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- End top 5 -->
+        <!-- Distribution of Answers Chart -->
+        <!-- <h3>Distribution of Answers</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <canvas id="chart-2"></canvas>
+            </div>
+            <div class="col-lg-6">
+                {% if user_stats.n_volunteers != 0%}
+                <table class="answers-tbl">
+                    <thead>
+                        <tr>
+                            <td>Type</td>
+                            <td>Users</td>
+                            <td>Percentage</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Authenticated</td>
+                            {% set authenticated_pct = user_stats.n_registered_volunteers/user_stats.n_volunteers*100 %}
+                            <td>{{user_stats.n_registered_volunteers}}</td>
+                            <td>{{authenticated_pct|round|int}} %</td>
+                        </tr>
+                        <tr>
+                            <td>Anonymous</td>
+                            {% set anonymous_pct = user_stats.n_anonymous_volunteers/user_stats.n_volunteers*100 %}
+                            <td>{{user_stats.n_anonymous_volunteers}}</td>
+                            <td>{{anonymous_pct|round|int}} %</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%endif%}
+            </div>
+        </div>
+        <script>
+            Chart.defaults.global.responsive = false;
+            // define the chart data
+            var chartData = {
+                labels: ["Authenticated", "Anonymous"],
+                datasets: [{
+                    data: [{{ authenticated_pct }}, {{ anonymous_pct }}],
+                backgroundColor: [
+                    "rgb(255, 99, 132)",
+                    "rgb(54, 162, 235)",
+                ]
+                        }]
+                    }
+            // get chart canvas
+            var ctx = document.getElementById("chart-2").getContext("2d");
+            // create the chart using the chart canvas
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                }
+            });
+        </script> -->
+        <!-- End chart-2 -->
+        <!-- Top 5 task activity -->
+        <h3>Top 5 tasks activity</h3>
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="task-leaderboard">
+                {% for i, t in enumerate(top_tasks_activity) %}
+                {% set task_pct = t.pct_status %}
+                    <li>
+                        <div class="rank rank-{{i+1}}"><p>{{i + 1}}</p></div>
+                        <div class="task-info">
+                            <div class="task-name">
+                                {{_('Task')}} <span class="label label-info {{ 'big-name' if i < 3 }}">#{{ t.id }}</span>
+                            </div>
+                            <span class="task-progress-label">{{task_pct}}%</span>
+                            <div class="task-progress">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{task_pct}}" aria-valuemin="0" aria-valuemax="100"
+                                        style="width: {{task_pct}}%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
                 </ul>
             </div>
         </div>
